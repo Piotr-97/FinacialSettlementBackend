@@ -47,9 +47,9 @@ public class WorkerService {
         return null;
     }
 
-    public  Worker addWorker(Worker worker){
+    public Worker addWorker(Worker worker){
 
-        return workerRepository.save(worker);
+       return workerRepository.save(worker);
     }
 
 
