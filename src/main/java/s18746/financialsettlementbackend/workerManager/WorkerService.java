@@ -1,9 +1,7 @@
-package s18746.financialsettlementbackend.services;
+package s18746.financialsettlementbackend.workerManager;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import s18746.financialsettlementbackend.entity.Worker;
-import s18746.financialsettlementbackend.repositories.WorkerRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +33,27 @@ public class WorkerService {
         }
         return workerToDelete;
     }
+
+
+
+    public Worker updateWorker(Worker newWorker){
+       Optional <Worker> workerOld = workerRepository.findById(newWorker.getId());
+
+       if(workerOld.isPresent()){
+           Worker updatedWorker = workerOld.get();
+           //TODO ADD LOGIC
+           workerRepository.save(updatedWorker);
+       }
+        return null;
+    }
+
+    public  Worker addWorker(Worker worker){
+
+        return workerRepository.save(worker);
+    }
+
+
+
 
 
 
