@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import s18746.financialsettlementbackend.workerManager.Worker;
-import s18746.financialsettlementbackend.workerManager.WorkerService;
+import s18746.financialsettlementbackend.workerManager.WorkerManagerFacade;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.Optional;
 public class WorkerController {
 
 
-    private final WorkerService workerService;
+    private final WorkerManagerFacade workerService;
 
 
     @GetMapping
