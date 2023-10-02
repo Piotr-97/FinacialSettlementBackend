@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface WorkerRepository extends JpaRepository<Worker,Long> {
+public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
 
-    Optional<Worker> findByFirstnameAndLastname(String firstname, String lastname);
+    Optional<Employee> findByFirstnameAndLastname(String firstname, String lastname);
     
 
 }

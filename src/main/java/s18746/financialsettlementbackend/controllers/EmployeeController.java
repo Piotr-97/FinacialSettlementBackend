@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import s18746.financialsettlementbackend.workerManager.Worker;
-import s18746.financialsettlementbackend.workerManager.WorkerManagerFacade;
+import s18746.financialsettlementbackend.workerManager.Employee;
+import s18746.financialsettlementbackend.workerManager.EmployeeManagerFacade;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,36 +16,36 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/workers")
+@RequestMapping("/employees")
 @AllArgsConstructor
-public class WorkerController {
+public class EmployeeController {
 
 
-    private final WorkerManagerFacade workerService;
+    private final EmployeeManagerFacade employeeService;
 
 
     @GetMapping
-    public List<Worker> getAllWorkers() {
-        return workerService.getAllWorkers();
+    public List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Worker> getWorker(@PathVariable Long id) {
+    public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
 
-        Optional<Worker> worker = workerService.getWorkerById(id);
-        return worker.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<Employee> employee = employeeService.getEmployeeById(id);
+        return employee.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<Worker> addWorker(@RequestBody Worker worker) {
-        workerService.addWorker(worker);
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+        employeeService.addEmployee(employee);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteWorker(@PathVariable Long id){
+    public void deleteEmployee(@PathVariable Long id){
 
-        workerService.deleteWorkerById(id);
+        employeeService.deleteEmployeeById(id);
     }
 
     @GetMapping("/pobierz-pdf")

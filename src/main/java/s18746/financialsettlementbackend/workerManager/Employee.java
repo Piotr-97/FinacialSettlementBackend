@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-public class Worker {
+public class Employee {
 
 
     @Id

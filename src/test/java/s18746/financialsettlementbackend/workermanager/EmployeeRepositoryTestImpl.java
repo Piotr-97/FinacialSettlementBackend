@@ -1,35 +1,33 @@
 package s18746.financialsettlementbackend.workermanager;
 
-import org.hibernate.jdbc.Work;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
-import s18746.financialsettlementbackend.workerManager.Worker;
-import s18746.financialsettlementbackend.workerManager.WorkerRepository;
+import s18746.financialsettlementbackend.workerManager.Employee;
+import s18746.financialsettlementbackend.workerManager.EmployeeRepository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public class WorkerRepositoryTestImpl implements WorkerRepository {
+public class EmployeeRepositoryTestImpl implements EmployeeRepository {
 
-    Map<Long,Worker> database = new ConcurrentHashMap<>();
+    Map<Long, Employee> database = new ConcurrentHashMap<>();
 
     @Override
-    public void delete(Worker worker) {
-      database.remove(worker.getId());
+    public void delete(Employee employee) {
+      database.remove(employee.getId());
     }
 
 
 
 
     @Override
-    public Optional<Worker> findByFirstnameAndLastname(String firstname, String lastname) {
+    public Optional<Employee> findByFirstnameAndLastname(String firstname, String lastname) {
        return database.values()
                 .stream()
                 .filter(e -> e.getFirstname().equals(firstname))
@@ -39,7 +37,7 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
 
 
     @Override
-    public List<Worker> findAll() {
+    public List<Employee> findAll() {
         return database.values().stream()
                 .toList();
     }
@@ -54,20 +52,20 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
 
 
     @Override
-    public Worker getById(Long id) {
+    public Employee getById(Long id) {
 
         return database.get(id);
     }
 
 
     @Override
-    public Worker save(Worker worker) {
-      return  database.put(worker.getId(),worker);
+    public Employee save(Employee employee) {
+      return  database.put(employee.getId(), employee);
 
     }
 
     @Override
-    public Optional<Worker> findById(Long id) {
+    public Optional<Employee> findById(Long id) {
       return   database.values().stream()
                 .filter(x -> x.getId().equals(id))
                 .findFirst();
@@ -82,17 +80,17 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
     }
 
     @Override
-    public <S extends Worker> S saveAndFlush(S entity) {
+    public <S extends Employee> S saveAndFlush(S entity) {
         return null;
     }
 
     @Override
-    public <S extends Worker> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends Employee> List<S> saveAllAndFlush(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<Worker> entities) {
+    public void deleteAllInBatch(Iterable<Employee> entities) {
 
     }
 
@@ -107,58 +105,58 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
     }
 
     @Override
-    public Worker getOne(Long aLong) {
+    public Employee getOne(Long aLong) {
         return null;
     }
 
 
     @Override
-    public Worker getReferenceById(Long aLong) {
+    public Employee getReferenceById(Long aLong) {
         return null;
     }
 
     @Override
-    public <S extends Worker> List<S> findAll(Example<S> example) {
+    public <S extends Employee> List<S> findAll(Example<S> example) {
         return null;
     }
 
 
     @Override
-    public <S extends Worker> Optional<S> findOne(Example<S> example) {
+    public <S extends Employee> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
 
 
     @Override
-    public <S extends Worker> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends Employee> List<S> findAll(Example<S> example, Sort sort) {
         return null;
     }
 
     @Override
-    public <S extends Worker> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends Employee> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
     @Override
-    public <S extends Worker> long count(Example<S> example) {
+    public <S extends Employee> long count(Example<S> example) {
         return 0;
     }
 
     @Override
-    public <S extends Worker> boolean exists(Example<S> example) {
+    public <S extends Employee> boolean exists(Example<S> example) {
         return false;
     }
 
     @Override
-    public <S extends Worker, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Employee, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 
 
 
     @Override
-    public <S extends Worker> List<S> saveAll(Iterable<S> entities) {
+    public <S extends Employee> List<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
@@ -171,7 +169,7 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
 
 
     @Override
-    public List<Worker> findAllById(Iterable<Long> longs) {
+    public List<Employee> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -190,7 +188,7 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends Worker> entities) {
+    public void deleteAll(Iterable<? extends Employee> entities) {
 
     }
 
@@ -200,12 +198,12 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
     }
 
     @Override
-    public List<Worker> findAll(Sort sort) {
+    public List<Employee> findAll(Sort sort) {
         return null;
     }
 
     @Override
-    public Page<Worker> findAll(Pageable pageable) {
+    public Page<Employee> findAll(Pageable pageable) {
         return null;
     }
 }
