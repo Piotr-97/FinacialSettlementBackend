@@ -20,6 +20,11 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
 
     Map<Long,Worker> database = new ConcurrentHashMap<>();
 
+    @Override
+    public void delete(Worker worker) {
+      database.remove(worker.getId());
+    }
+
 
 
 
@@ -37,6 +42,11 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
     public List<Worker> findAll() {
         return database.values().stream()
                 .toList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        database.remove(id);
     }
 
 
@@ -170,15 +180,9 @@ public class WorkerRepositoryTestImpl implements WorkerRepository {
         return 0;
     }
 
-    @Override
-    public void deleteById(Long aLong) {
 
-    }
 
-    @Override
-    public void delete(Worker entity) {
 
-    }
 
     @Override
     public void deleteAllById(Iterable<? extends Long> longs) {
