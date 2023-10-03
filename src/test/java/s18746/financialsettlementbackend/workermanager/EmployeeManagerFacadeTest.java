@@ -85,7 +85,24 @@ public class EmployeeManagerFacadeTest {
 
     @Test
     public void shouldReturnListOfAllEmployeesInDatabase(){
-
+        //given
+        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
+        Employee employee = Employee.builder()
+                .id(2L)
+                .firstname("Marek")
+                .lastname("Kowalski")
+                .email("marek.kowalski@email.com")
+                .birthdate(LocalDate.of(1997, Month.APRIL, 12)).build();
+        Employee employee2 = employee.builder()
+                .id(1L)
+                .firstname("Kowalski")
+                .lastname("Kowalski")
+                .email("marek.kowalski@email.com")
+                .birthdate(LocalDate.of(1997, Month.APRIL, 12)).build();
+        employeeManagerFacade.addEmployee(employee);
+        employeeManagerFacade.addEmployee(employee2);
+        //when & Then
+        assertEquals(2,employeeRepository.findAll().size());
     }
 
 
