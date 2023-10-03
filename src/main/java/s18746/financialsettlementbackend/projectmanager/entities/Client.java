@@ -1,6 +1,5 @@
 package s18746.financialsettlementbackend.projectmanager.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class FinancialSettlement {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
