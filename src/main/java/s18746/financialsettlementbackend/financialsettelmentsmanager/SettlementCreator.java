@@ -1,6 +1,6 @@
 package s18746.financialsettlementbackend.financialsettelmentsmanager;
 
-class SettlementCreator {
+public class SettlementCreator {
 
 
     public FinancialSettlement createFinancialSettlement(){
