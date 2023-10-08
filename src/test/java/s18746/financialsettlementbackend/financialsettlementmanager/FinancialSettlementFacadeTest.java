@@ -1,12 +1,9 @@
 package s18746.financialsettlementbackend.financialsettlementmanager;
 
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementManagerConfiguration;
-import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementRepository;
-import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementManagerFacade;
-import s18746.financialsettlementbackend.financialsettelmentsmanager.SettlementCreator;
+import s18746.financialsettlementbackend.financialsettelmentsmanager.*;
 
 @SpringBootTest
 public class FinancialSettlementFacadeTest {
@@ -17,11 +14,20 @@ public class FinancialSettlementFacadeTest {
 
     @Test
     public void shouldCreateNewFinancialSettlement(){
-        SettlementCreator settlementCreator = new SettlementCreator();
-        FinancialSettlementManagerFacade financialSettlementManagerFacade = new FinancialSettlementManagerConfiguration().financialSettlementManagerFacadeForTest(financialSettlementRepository,settlementCreator) ;
+        //given
+        SettlementGenerator settlementGenerator = new SettlementGenerator();
+        FinancialSettlementManagerFacade financialSettlementManagerFacade = new FinancialSettlementManagerConfiguration().financialSettlementManagerFacadeForTest(financialSettlementRepository, settlementGenerator) ;
 
 
-         ;
+
+        //when
+        FinancialSettlement financialSettlement = financialSettlementManagerFacade.createNewSettlement();
+
+
+        //then
+
+
     }
 
 }
+

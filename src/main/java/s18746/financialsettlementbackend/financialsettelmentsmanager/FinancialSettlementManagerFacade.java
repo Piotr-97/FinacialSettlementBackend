@@ -6,8 +6,11 @@ import lombok.AllArgsConstructor;
 public class FinancialSettlementManagerFacade {
 
     private final FinancialSettlementRepository financialSettlementRepository;
-    private final SettlementCreator settlementCreator;
+    private final SettlementGenerator settlementGenerator;
 
 
+    public FinancialSettlement createNewSettlement() {
+       return null;
 
+    }
 }

@@ -10,13 +10,13 @@ public class FinancialSettlementManagerConfiguration {
 
     @Bean
     public FinancialSettlementManagerFacade financialSettlementManagerFacade(FinancialSettlementRepository financialSettlementRepository){
-        SettlementCreator settlementCreator = new SettlementCreator();
-       return new FinancialSettlementManagerFacade(financialSettlementRepository, settlementCreator);
+        SettlementGenerator settlementGenerator = new SettlementGenerator();
+       return new FinancialSettlementManagerFacade(financialSettlementRepository, settlementGenerator);
     }
 
-    public FinancialSettlementManagerFacade financialSettlementManagerFacadeForTest(FinancialSettlementRepository financialSettlementRepository,SettlementCreator settlementCreator)
+    public FinancialSettlementManagerFacade financialSettlementManagerFacadeForTest(FinancialSettlementRepository financialSettlementRepository, SettlementGenerator settlementGenerator)
     {
-        return new FinancialSettlementManagerFacade(financialSettlementRepository,settlementCreator);
+        return new FinancialSettlementManagerFacade(financialSettlementRepository, settlementGenerator);
     }
 
 
