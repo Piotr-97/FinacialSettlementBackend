@@ -18,5 +18,18 @@ public class ProjectManagerFacade {
     }
 
 
+    public Project addProject(){
+
+
+        return null;
+    }
+
+    public Project updateProject(){
+        return null;
+    }
+
+
+
+
 
 }

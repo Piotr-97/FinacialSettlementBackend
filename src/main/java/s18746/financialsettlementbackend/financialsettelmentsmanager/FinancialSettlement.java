@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "financialsettlement")
 public class FinancialSettlement {
 
     @Id
@@ -30,8 +31,8 @@ public class FinancialSettlement {
     @Enumerated
     private FinancialSettlementStatus status;
 
-    @OneToOne
-    @JoinColumn(name = "work_under_project_id")
+    @ManyToOne
+    @JoinColumn(name = "workunderproject_id")
     private WorkUnderProject workUnderProject;
 
     @OneToOne
