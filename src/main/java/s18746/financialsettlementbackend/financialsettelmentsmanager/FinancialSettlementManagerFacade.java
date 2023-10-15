@@ -9,7 +9,7 @@ public class FinancialSettlementManagerFacade {
     private final SettlementGenerator settlementGenerator;
 
 
-    public FinancialSettlement createNewSettlement() {
+    public FinancialSettlement createNewSettlement(FinancialSettlementDto financialSettlementDto) {
        return null;
 
     }

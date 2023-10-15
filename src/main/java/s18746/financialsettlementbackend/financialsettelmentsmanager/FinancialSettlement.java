@@ -11,6 +11,7 @@ import s18746.financialsettlementbackend.projectmanager.entities.WorkUnderProjec
 import s18746.financialsettlementbackend.workerManager.Employee;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -39,6 +40,11 @@ public class FinancialSettlement {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    @Enumerated
+    private SettlementType settlementType;
+
+
+    private LocalDateTime date;
 
 
 

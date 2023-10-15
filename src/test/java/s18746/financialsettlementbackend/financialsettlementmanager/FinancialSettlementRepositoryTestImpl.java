@@ -7,15 +7,22 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementRepository;
+import s18746.financialsettlementbackend.workerManager.Employee;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 public class FinancialSettlementRepositoryTestImpl implements FinancialSettlementRepository {
+
+    Map<Long, Employee> database = new ConcurrentHashMap<>();
+
+
     @Override
     public void flush() {
-        
+
     }
 
     @Override

@@ -17,4 +17,12 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String name;
+
+    private String nip;
+
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
 }
