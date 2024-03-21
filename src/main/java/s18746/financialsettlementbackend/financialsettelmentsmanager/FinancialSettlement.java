@@ -1,24 +1,21 @@
 package s18746.financialsettlementbackend.financialsettelmentsmanager;
 
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import s18746.financialsettlementbackend.projectmanager.entities.Client;
+import lombok.*;
 import s18746.financialsettlementbackend.projectmanager.entities.WorkUnderProject;
-import s18746.financialsettlementbackend.workerManager.Employee;
+import s18746.financialsettlementbackend.workermanager.Employee;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "financialsettlement")
+@Builder
+@Entity
 public class FinancialSettlement {
 
     @Id

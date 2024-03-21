@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementRepository;
-import s18746.financialsettlementbackend.workerManager.Employee;
+import s18746.financialsettlementbackend.workermanager.Employee;
 
 import java.util.List;
 import java.util.Map;
@@ -167,6 +167,11 @@ public class FinancialSettlementRepositoryTestImpl implements FinancialSettlemen
 
     @Override
     public Page<FinancialSettlement> findAll(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public List<FinancialSettlement> findAllByEmployeeId(Long employee_id) {
         return null;
     }
 }

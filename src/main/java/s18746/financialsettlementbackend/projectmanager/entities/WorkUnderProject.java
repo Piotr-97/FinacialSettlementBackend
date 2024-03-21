@@ -1,12 +1,12 @@
 package s18746.financialsettlementbackend.projectmanager.entities;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -22,8 +22,17 @@ public class WorkUnderProject {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
+
+    private String name;
+
+    private String describe;
 
     @OneToMany(mappedBy = "workUnderProject")
     private Set<FinancialSettlement> financialSettlements;
+
+
 
 }

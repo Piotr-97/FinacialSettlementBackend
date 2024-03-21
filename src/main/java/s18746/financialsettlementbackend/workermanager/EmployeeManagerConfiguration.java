@@ -1,4 +1,4 @@
-package s18746.financialsettlementbackend.workerManager;
+package s18746.financialsettlementbackend.workermanager;
 
 
 import org.springframework.context.annotation.Bean;

@@ -5,10 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import s18746.financialsettlementbackend.workerManager.Employee;
-import s18746.financialsettlementbackend.workerManager.EmployeeManagerConfiguration;
-import s18746.financialsettlementbackend.workerManager.EmployeeManagerFacade;
-import s18746.financialsettlementbackend.workerManager.EmployeeRepository;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -23,16 +19,11 @@ public class EmployeeManagerFacadeTest {
     public void shouldAddNewWorkerToRepository() {
         //given
         EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
-        Employee employee = Employee.builder()
-                .id(1L)
-                .firstname("Marek")
-                .lastname("Kowalski")
-                .email("marek.kowalski@email.com")
-                .birthdate(LocalDate.of(1997, Month.APRIL, 12)).build();
+        EmployeeDto employeeDto = new EmployeeDto(1L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
         //when
-        employeeManagerFacade.addEmployee(employee);
+        employeeManagerFacade.addEmployee(employeeDto);
         //then
-        assertEquals(employee, employeeRepository.findById(1L).get());
+        assertEquals(employeeDto,employeeManagerFacade.getEmployeeById(1L).get());
         assertEquals(employeeRepository.findAll().size(), 1);
 
 
@@ -42,19 +33,15 @@ public class EmployeeManagerFacadeTest {
     public void shouldFindWorkerByIdFromRepository(){
         //given
         EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
-        Employee employee = Employee.builder()
-                .id(2L)
-                .firstname("Marek")
-                .lastname("Kowalski")
-                .email("marek.kowalski@email.com")
-                .birthdate(LocalDate.of(1997, Month.APRIL, 12)).build();
-        employeeManagerFacade.addEmployee(employee);
+        EmployeeDto employeeDto = new EmployeeDto(1L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
+
+        employeeManagerFacade.addEmployee(employeeDto);
 
         //when
-        Employee employee1 = employeeManagerFacade.getEmployeeById(2L).get();
+        EmployeeDto employee1 = employeeManagerFacade.getEmployeeById(1L).get();
 
         //then
-        assertEquals(employee, employee1);
+        assertEquals(employeeDto, employee1);
         assertEquals(1, employeeRepository.findAll().size());
     }
 
@@ -62,18 +49,9 @@ public class EmployeeManagerFacadeTest {
     public void ShouldDeleteWorkerFromRepository(){
         //given
         EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
-        Employee employee = Employee.builder()
-                .id(2L)
-                .firstname("Marek")
-                .lastname("Kowalski")
-                .email("marek.kowalski@email.com")
-                .birthdate(LocalDate.of(1997, Month.APRIL, 12)).build();
-        Employee employee2 = employee.builder()
-                .id(1L)
-                .firstname("Kowalski")
-                .lastname("Kowalski")
-                .email("marek.kowalski@email.com")
-                .birthdate(LocalDate.of(1997, Month.APRIL, 12)).build();
+        EmployeeDto employee = new EmployeeDto(1L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
+        EmployeeDto employee2 = new EmployeeDto(2L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
+
         employeeManagerFacade.addEmployee(employee);
         employeeManagerFacade.addEmployee(employee2);
         //when
@@ -87,18 +65,8 @@ public class EmployeeManagerFacadeTest {
     public void shouldReturnListOfAllEmployeesInDatabase(){
         //given
         EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
-        Employee employee = Employee.builder()
-                .id(2L)
-                .firstname("Marek")
-                .lastname("Kowalski")
-                .email("marek.kowalski@email.com")
-                .birthdate(LocalDate.of(1997, Month.APRIL, 12)).build();
-        Employee employee2 = employee.builder()
-                .id(1L)
-                .firstname("Kowalski")
-                .lastname("Kowalski")
-                .email("marek.kowalski@email.com")
-                .birthdate(LocalDate.of(1997, Month.APRIL, 12)).build();
+        EmployeeDto employee = new EmployeeDto(1L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
+        EmployeeDto employee2 = new EmployeeDto(2L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
         employeeManagerFacade.addEmployee(employee);
         employeeManagerFacade.addEmployee(employee2);
         //when & Then

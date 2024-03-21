@@ -1,14 +1,16 @@
 package s18746.financialsettlementbackend.controllers;
 
 
-import jakarta.servlet.http.HttpServletResponse;
+
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import s18746.financialsettlementbackend.workerManager.Employee;
-import s18746.financialsettlementbackend.workerManager.EmployeeManagerFacade;
+import s18746.financialsettlementbackend.workermanager.Employee;
+import s18746.financialsettlementbackend.workermanager.EmployeeDto;
+import s18746.financialsettlementbackend.workermanager.EmployeeManagerFacade;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,32 +23,42 @@ import java.util.Optional;
 public class EmployeeController {
 
 
-    private final EmployeeManagerFacade employeeService;
+    private final EmployeeManagerFacade employeeManagerFacade;
 
 
     @GetMapping
     public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+        return employeeManagerFacade.getAllEmployees();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
 
-        Optional<Employee> employee = employeeService.getEmployeeById(id);
-        return employee.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<EmployeeDto> employee = employeeManagerFacade.getEmployeeById(id);
+    return  new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     @PostMapping
-    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
+    public ResponseEntity<Employee> addEmployee(@RequestBody EmployeeDto employee) {
+        employeeManagerFacade.addEmployee(employee);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id){
 
-        employeeService.deleteEmployeeById(id);
+        employeeManagerFacade.deleteEmployeeById(id);
     }
+
+    @PatchMapping
+    public ResponseEntity<Employee> updateData(@RequestBody EmployeeDto employeeDto){
+        employeeManagerFacade.updateEmployee(employeeDto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
     @GetMapping("/pobierz-pdf")
     public void pobierzPdf(HttpServletResponse response) throws IOException {

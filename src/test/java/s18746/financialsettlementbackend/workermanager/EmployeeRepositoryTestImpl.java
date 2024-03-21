@@ -5,8 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
-import s18746.financialsettlementbackend.workerManager.Employee;
-import s18746.financialsettlementbackend.workerManager.EmployeeRepository;
 
 import java.util.List;
 import java.util.Map;

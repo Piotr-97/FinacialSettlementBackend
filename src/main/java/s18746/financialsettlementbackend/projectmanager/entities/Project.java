@@ -1,10 +1,13 @@
 package s18746.financialsettlementbackend.projectmanager.entities;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -16,7 +19,7 @@ public class Project {
 
     @Id
     @Column(name = "id", nullable = false)
-    private String id;
+    private Long id;
 
     private String name;
 
@@ -25,8 +28,7 @@ public class Project {
     private Client client;
 
 
-    @ManyToOne
-    @JoinColumn(name = "work_under_project_id")
-    private WorkUnderProject workUnderProject;
+    @OneToMany
+    private Set<WorkUnderProject> workUnderProject;
 
 }

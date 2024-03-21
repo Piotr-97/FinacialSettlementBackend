@@ -19,6 +19,7 @@ public class FinancialSettlementFacadeTest {
     public void shouldCreateNewFinancialSettlement() {
         //given
         FinancialSettlementDto financialSettlementDto = new FinancialSettlementDto(
+                1L,
                 "Describe1",
                 BigDecimal.valueOf(100.00d),
                 "Company1",

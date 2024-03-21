@@ -1,10 +1,11 @@
 package s18746.financialsettlementbackend.accountantmenager;
 
 
-import jakarta.persistence.*;
+
 import lombok.*;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,7 +33,7 @@ public class AnswerForSettlement {
 
     private String anwserForSettlement;
 
-    private SettlementStatus settlementStatus;
+    private SettlementAnswerStatus settlementAnswerStatus;
 
 
 
