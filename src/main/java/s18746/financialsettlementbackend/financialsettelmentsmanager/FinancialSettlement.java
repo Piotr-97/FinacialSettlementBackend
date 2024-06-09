@@ -6,6 +6,8 @@ import s18746.financialsettlementbackend.projectmanager.entities.WorkUnderProjec
 import s18746.financialsettlementbackend.workermanager.Employee;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -22,6 +24,8 @@ public class FinancialSettlement {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "describe shouldn't be null")
+    @Max(1000)
     private String describe;
 
     private BigDecimal amountOfMoney;

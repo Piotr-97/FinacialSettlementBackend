@@ -10,7 +10,6 @@ import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlementDt
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Spliterator;
 
 @RestController
 @AllArgsConstructor

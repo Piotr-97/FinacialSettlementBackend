@@ -18,7 +18,7 @@ public class PdfController {
         // Wczytaj plik PDF z dysku lub generuj go dynamicznie
         FileInputStream fileInputStream = new FileInputStream("hello.pdf");
 
-        // Przepisz dane z FileInputStream do OutputStream odpowiedzi
+                // Przepisz dane z FileInputStream do OutputStream odpowiedzi
         OutputStream outputStream = response.getOutputStream();
         byte[] buffer = new byte[1024];
         int bytesRead;

@@ -1,10 +1,11 @@
-package s18746.financialsettlementbackend.accountantmenager;
+package s18746.financialsettlementbackend.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import s18746.financialsettlementbackend.accountantmenager.TokenRequestDto;
 import s18746.financialsettlementbackend.security.JwtAuthenticatorFacade;
 import s18746.financialsettlementbackend.security.JwtResponseDto;
 
