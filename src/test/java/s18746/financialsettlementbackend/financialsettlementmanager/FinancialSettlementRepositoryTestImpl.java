@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementRepository;
-import s18746.financialsettlementbackend.workermanager.Employee;
+import s18746.financialsettlementbackend.employeemanager.Employee;
 
 import java.util.List;
 import java.util.Map;

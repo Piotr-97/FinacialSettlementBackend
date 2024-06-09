@@ -1,4 +1,4 @@
-package s18746.financialsettlementbackend.workermanager;
+package s18746.financialsettlementbackend.employeemanager;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

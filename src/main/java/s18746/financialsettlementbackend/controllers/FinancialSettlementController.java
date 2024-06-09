@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementDto;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementManagerFacade;
-import s18746.financialsettlementbackend.workermanager.EmployeeDto;
+import s18746.financialsettlementbackend.employeemanager.EmployeeDto;
 
 import java.util.List;
 import java.util.Optional;

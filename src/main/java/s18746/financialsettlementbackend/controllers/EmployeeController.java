@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import s18746.financialsettlementbackend.workermanager.Employee;
-import s18746.financialsettlementbackend.workermanager.EmployeeDto;
-import s18746.financialsettlementbackend.workermanager.EmployeeManagerFacade;
+import s18746.financialsettlementbackend.employeemanager.Employee;
+import s18746.financialsettlementbackend.employeemanager.EmployeeDto;
+import s18746.financialsettlementbackend.employeemanager.EmployeeManagerFacade;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;

@@ -1,7 +1,7 @@
 package s18746.financialsettlementbackend.financialsettelmentsmanager;
 
 import lombok.AllArgsConstructor;
-import s18746.financialsettlementbackend.workermanager.EmployeeDto;
+import s18746.financialsettlementbackend.employeemanager.EmployeeDto;
 
 import java.util.List;
 import java.util.Optional;

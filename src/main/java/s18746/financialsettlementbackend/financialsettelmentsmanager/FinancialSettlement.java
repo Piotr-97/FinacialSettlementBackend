@@ -3,7 +3,7 @@ package s18746.financialsettlementbackend.financialsettelmentsmanager;
 
 import lombok.*;
 import s18746.financialsettlementbackend.projectmanager.entities.WorkUnderProject;
-import s18746.financialsettlementbackend.workermanager.Employee;
+import s18746.financialsettlementbackend.employeemanager.Employee;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
