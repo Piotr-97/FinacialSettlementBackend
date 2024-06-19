@@ -35,9 +35,8 @@ public class AccountantManagerController {
     }
 
 
-    public ResponseEntity<?> addAnswerForSettlement(@RequestBody AnswerForSettlementDto answerForSettlementDto,@PathVariable Long id){
-
-        accountantManagerFacade.addResponseToSettlement(id,answerForSettlementDto);
+    public ResponseEntity<?> addAnswerForSettlement(@RequestBody AnswerForSettlementDto answerForSettlementDto){
+        accountantManagerFacade.addResponseToSettlement(answerForSettlementDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

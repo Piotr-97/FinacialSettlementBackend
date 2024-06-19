@@ -1,23 +1,27 @@
 package s18746.financialsettlementbackend.financialsettelmentsmanager;
 
 
-import lombok.*;
-import s18746.financialsettlementbackend.projectmanager.entities.WorkUnderProject;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.validator.constraints.Length;
 import s18746.financialsettlementbackend.employeemanager.Employee;
+import s18746.financialsettlementbackend.projectmanager.entities.WorkUnderProject;
+import s18746.financialsettlementbackend.utils.UuidGenerator;
 
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class FinancialSettlement {
 
     @Id
@@ -25,10 +29,12 @@ public class FinancialSettlement {
     private Long id;
 
     @NotBlank(message = "describe shouldn't be null")
-    @Max(1000)
+    @Length(min = 1, max = 10000)
     private String describe;
 
     private BigDecimal amountOfMoney;
+
+    private String uuid;
 
     @Enumerated
     private FinancialSettlementStatus status;
@@ -37,7 +43,7 @@ public class FinancialSettlement {
     @JoinColumn(name = "workunderproject_id")
     private WorkUnderProject workUnderProject;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
@@ -48,8 +54,19 @@ public class FinancialSettlement {
     private LocalDateTime date;
 
 
+    public FinancialSettlement(Long id, @NotBlank(message = "describe shouldn't be null") @Max(1000) String describe, BigDecimal amountOfMoney, String uuid, FinancialSettlementStatus status, WorkUnderProject workUnderProject, Employee employee, SettlementType settlementType, LocalDateTime date) {
+        this.id = id;
+        this.describe = describe;
+        this.amountOfMoney = amountOfMoney;
+        this.uuid = uuid;
+        this.status = status;
+        this.workUnderProject = workUnderProject;
+        this.employee = employee;
+        this.settlementType = settlementType;
+        this.date = date;
+        this.uuid = UuidGenerator.generateUuid();
+    }
 
-
-
-
+    public FinancialSettlement() {
+    }
 }

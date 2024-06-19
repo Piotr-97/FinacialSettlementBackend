@@ -49,8 +49,8 @@ public class ProjectManagerContoller {
         return null;
     }
 
-    @PatchMapping
-    public ResponseEntity<ProjectDto> updateProject(ProjectDto projectDto){
+    @PatchMapping("works")
+    public ResponseEntity<ProjectDto> updateProject(@RequestBody ProjectDto projectDto){
         return null;
     }
 

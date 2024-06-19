@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 
-import javax.persistence.*;
-import java.util.List;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity

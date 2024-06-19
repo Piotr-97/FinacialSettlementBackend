@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDate;
-import java.time.Month;
+import s18746.financialsettlementbackend.utils.EmployeeMapper;
 
 @SpringBootTest
 public class EmployeeManagerFacadeTest {
@@ -18,12 +16,13 @@ public class EmployeeManagerFacadeTest {
     @Test
     public void shouldAddNewWorkerToRepository() {
         //given
-        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
-        EmployeeDto employeeDto = new EmployeeDto(1L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository,employeeMapper);
+        EmployeeDto employeeDto = new EmployeeDto(1L,"Marek","Kowalski");
         //when
         employeeManagerFacade.addEmployee(employeeDto);
         //then
-        assertEquals(employeeDto,employeeManagerFacade.getEmployeeById(1L).get());
+        assertEquals(employeeDto,employeeManagerFacade.getEmployeeDtoById(1L).get());
         assertEquals(employeeRepository.findAll().size(), 1);
 
 
@@ -32,13 +31,14 @@ public class EmployeeManagerFacadeTest {
     @Test
     public void shouldFindWorkerByIdFromRepository(){
         //given
-        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
-        EmployeeDto employeeDto = new EmployeeDto(1L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository,employeeMapper);
+        EmployeeDto employeeDto = new EmployeeDto(1L,"Marek","Kowalski");
 
         employeeManagerFacade.addEmployee(employeeDto);
 
         //when
-        EmployeeDto employee1 = employeeManagerFacade.getEmployeeById(1L).get();
+        EmployeeDto employee1 = employeeManagerFacade.getEmployeeDtoById(1L).get();
 
         //then
         assertEquals(employeeDto, employee1);
@@ -48,9 +48,10 @@ public class EmployeeManagerFacadeTest {
     @Test
     public void ShouldDeleteWorkerFromRepository(){
         //given
-        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
-        EmployeeDto employee = new EmployeeDto(1L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
-        EmployeeDto employee2 = new EmployeeDto(2L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository,employeeMapper);
+        EmployeeDto employee = new EmployeeDto(1L,"Marek","Kowalski");
+        EmployeeDto employee2 = new EmployeeDto(2L,"Marek","Kowalski");
 
         employeeManagerFacade.addEmployee(employee);
         employeeManagerFacade.addEmployee(employee2);
@@ -64,9 +65,10 @@ public class EmployeeManagerFacadeTest {
     @Test
     public void shouldReturnListOfAllEmployeesInDatabase(){
         //given
-        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
-        EmployeeDto employee = new EmployeeDto(1L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
-        EmployeeDto employee2 = new EmployeeDto(2L,"Marek","Kowalski",LocalDate.of(1997, Month.APRIL, 12));
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository,employeeMapper);
+        EmployeeDto employee = new EmployeeDto(1L,"Marek","Kowalski");
+        EmployeeDto employee2 = new EmployeeDto(2L,"Marek","Kowalski");
         employeeManagerFacade.addEmployee(employee);
         employeeManagerFacade.addEmployee(employee2);
         //when & Then

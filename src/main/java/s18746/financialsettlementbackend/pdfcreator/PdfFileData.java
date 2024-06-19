@@ -5,11 +5,8 @@ import lombok.*;
 import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlement;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
-
 @Entity
 @Builder
 @AllArgsConstructor

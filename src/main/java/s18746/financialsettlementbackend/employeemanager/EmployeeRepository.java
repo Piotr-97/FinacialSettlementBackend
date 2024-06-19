@@ -12,6 +12,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
 
     Optional<Employee> findByFirstnameAndLastname(String firstname, String lastname);
+
+    Optional<Employee> findByUuid(String uuid);
     
 
 }

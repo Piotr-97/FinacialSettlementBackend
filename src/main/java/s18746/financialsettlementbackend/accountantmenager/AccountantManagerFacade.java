@@ -1,12 +1,12 @@
 package s18746.financialsettlementbackend.accountantmenager;
 
 
-import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
-import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementDto;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static s18746.financialsettlementbackend.utils.AnswerForSettlementMapper.mapListAnswerForDto;
 
 public class AccountantManagerFacade {
 
@@ -19,16 +19,16 @@ public class AccountantManagerFacade {
         this.answerForSettlementRepository = answerForSettlementRepository;
     }
 
-    public void addResponseToSettlement(Long settlementId, AnswerForSettlementDto answerForSettlementDto){
+    public void addResponseToSettlement( AnswerForSettlementDto answerForSettlementDto) {
     }
 
     public AnswerForSettlement createResponseForSettlement(AnswerForSettlementDto answerForSettlementDto) {
-    return financialSettlementResponseCreator.createNewAnswer(answerForSettlementDto.anwserForSettlement(), answerForSettlementDto.settlementAnswerStatus());
+        return financialSettlementResponseCreator.createNewAnswer(answerForSettlementDto.anwserForSettlement(), answerForSettlementDto.settlementAnswerStatus());
     }
 
 
     public Optional<AnswerForSettlementDto> findAnswerForSettlementById(Long id) {
-       Optional<AnswerForSettlement> answerForSettlement = answerForSettlementRepository.findById(id);
+        Optional<AnswerForSettlement> answerForSettlement = answerForSettlementRepository.findById(id);
         return answerForSettlement.map(this::mapAnswerForDto);
     }
 
@@ -37,26 +37,10 @@ public class AccountantManagerFacade {
         return mapListAnswerForDto(answerForSettlementList);
     }
 
-    private List<AnswerForSettlementDto> mapListAnswerForDto(List<AnswerForSettlement> answerForSettlementList) {
-        List<AnswerForSettlementDto> dtoList = new ArrayList<>();
-        answerForSettlementList.forEach(x ->
-                dtoList.add(new AnswerForSettlementDto
-                                                (x.getId(),
-                                                        x.getCreatedDate(),
-                                                        x.getFinancialSettlement()
-                                                        ,x.getAnwserForSettlement()
-                                                        ,x.getSettlementAnswerStatus())));
 
-        return dtoList;
-    }
 
-    private AnswerForSettlementDto mapAnswerForDto(AnswerForSettlement answerForSettlement){
-        return new AnswerForSettlementDto
-                (       answerForSettlement.getId(),
-                        answerForSettlement.getCreatedDate(),
-                        answerForSettlement.getFinancialSettlement(),
-                        answerForSettlement.getAnwserForSettlement(),
-                        answerForSettlement.getSettlementAnswerStatus());
+    private AnswerForSettlementDto mapAnswerForDto(AnswerForSettlement answerForSettlement) {
+        return new AnswerForSettlementDto(answerForSettlement.getCreatedDate(), answerForSettlement.getFinancialSettlement(), answerForSettlement.getAnwserForSettlement(), answerForSettlement.getSettlementAnswerStatus());
     }
 
 }
