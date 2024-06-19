@@ -6,5 +6,12 @@ import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSe
 import java.time.LocalDateTime;
 
 @Builder
-public record AnswerForSettlementDto( LocalDateTime createdDate, FinancialSettlement financialSettlement, String anwserForSettlement, SettlementAnswerStatus settlementAnswerStatus) {
+public record AnswerForSettlementDto(String settlementUUID,
+                                     String answerForSettlementUuid,
+                                     String answerForSettlement,
+                                     LocalDateTime createdAt,
+                                     String settlementAnswerStatus,
+                                     String employeeUuid,
+                                     String employeeName
+                                     ) {
 }

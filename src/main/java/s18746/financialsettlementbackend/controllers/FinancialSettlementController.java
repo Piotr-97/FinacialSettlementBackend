@@ -26,8 +26,8 @@ public class FinancialSettlementController {
 
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<?> getFinancialSettlementById(@PathVariable Long uuid){
-        Optional<FinancialSettlement> financialSettlement = financialSettlementManagerFacade.getFinancialSettlementById(uuid);
+    public ResponseEntity<?> getFinancialSettlementById(@PathVariable String uuid){
+        Optional<FinancialSettlement> financialSettlement = financialSettlementManagerFacade.getFinancialSettlementByUuId(uuid);
         if(financialSettlement.isPresent()) {
             return new ResponseEntity<>(financialSettlement,HttpStatus.OK);
         }
@@ -35,14 +35,13 @@ public class FinancialSettlementController {
     }
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteFinancialSettlementById(@PathVariable Long id){
-        Optional<FinancialSettlement> financialSettlement = financialSettlementManagerFacade.getFinancialSettlementById(id);
-        if(financialSettlement.isPresent()) {
-            financialSettlementManagerFacade.deleteFinancialSettlementById(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<?> deleteFinancialSettlementById(@PathVariable String uuid){
+        Optional<FinancialSettlement> financialSettlement = financialSettlementManagerFacade.getFinancialSettlementByUuId(uuid);
+//            financialSettlementManagerFacade.deleteFinancialSettlementById(id);
             return new ResponseEntity<>(financialSettlement,HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping

@@ -17,7 +17,7 @@ public class EmployeeManagerFacadeTest {
     public void shouldAddNewWorkerToRepository() {
         //given
         EmployeeMapper employeeMapper = new EmployeeMapper();
-        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository,employeeMapper);
+        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
         EmployeeDto employeeDto = new EmployeeDto(1L,"Marek","Kowalski");
         //when
         employeeManagerFacade.addEmployee(employeeDto);
@@ -32,7 +32,7 @@ public class EmployeeManagerFacadeTest {
     public void shouldFindWorkerByIdFromRepository(){
         //given
         EmployeeMapper employeeMapper = new EmployeeMapper();
-        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository,employeeMapper);
+        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
         EmployeeDto employeeDto = new EmployeeDto(1L,"Marek","Kowalski");
 
         employeeManagerFacade.addEmployee(employeeDto);
@@ -49,7 +49,7 @@ public class EmployeeManagerFacadeTest {
     public void ShouldDeleteWorkerFromRepository(){
         //given
         EmployeeMapper employeeMapper = new EmployeeMapper();
-        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository,employeeMapper);
+        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
         EmployeeDto employee = new EmployeeDto(1L,"Marek","Kowalski");
         EmployeeDto employee2 = new EmployeeDto(2L,"Marek","Kowalski");
 
@@ -66,7 +66,7 @@ public class EmployeeManagerFacadeTest {
     public void shouldReturnListOfAllEmployeesInDatabase(){
         //given
         EmployeeMapper employeeMapper = new EmployeeMapper();
-        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository,employeeMapper);
+        EmployeeManagerFacade employeeManagerFacade = new EmployeeManagerConfiguration().employeeManagerFacadeForTest(employeeRepository);
         EmployeeDto employee = new EmployeeDto(1L,"Marek","Kowalski");
         EmployeeDto employee2 = new EmployeeDto(2L,"Marek","Kowalski");
         employeeManagerFacade.addEmployee(employee);

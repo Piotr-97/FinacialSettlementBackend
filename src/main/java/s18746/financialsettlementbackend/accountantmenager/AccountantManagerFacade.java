@@ -1,6 +1,8 @@
 package s18746.financialsettlementbackend.accountantmenager;
 
 
+import s18746.financialsettlementbackend.utils.AnswerForSettlementMapper;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +21,11 @@ public class AccountantManagerFacade {
         this.answerForSettlementRepository = answerForSettlementRepository;
     }
 
-    public void addResponseToSettlement( AnswerForSettlementDto answerForSettlementDto) {
+    public void addResponseToSettlement(AnswerForSettlementDto answerForSettlementDto) {
     }
 
     public AnswerForSettlement createResponseForSettlement(AnswerForSettlementDto answerForSettlementDto) {
-        return financialSettlementResponseCreator.createNewAnswer(answerForSettlementDto.anwserForSettlement(), answerForSettlementDto.settlementAnswerStatus());
+        return financialSettlementResponseCreator.createNewAnswer(answerForSettlementDto.answerForSettlementUuid(), SettlementAnswerStatus.valueOf(answerForSettlementDto.settlementAnswerStatus()));
     }
 
 
@@ -38,9 +40,8 @@ public class AccountantManagerFacade {
     }
 
 
-
     private AnswerForSettlementDto mapAnswerForDto(AnswerForSettlement answerForSettlement) {
-        return new AnswerForSettlementDto(answerForSettlement.getCreatedDate(), answerForSettlement.getFinancialSettlement(), answerForSettlement.getAnwserForSettlement(), answerForSettlement.getSettlementAnswerStatus());
+        return AnswerForSettlementMapper.mapAnswerForDto(answerForSettlement);
     }
 
 }
