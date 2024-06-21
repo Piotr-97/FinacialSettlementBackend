@@ -2,7 +2,7 @@ package s18746.financialsettlementbackend.accountantmenager;
 
 public enum SettlementAnswerStatus {
 
-    WAITING_FOR_RESPONSE("Oczekuje na Odpowiedz"),DENIED("Niezaakceptowana"), RESOLVED("Rozwiazana");
+    WAITING_FOR_RESPONSE("Waiting"),DENIED("DENIED"), RESOLVED("RESOLVED");
 
 
 

@@ -3,7 +3,6 @@ package s18746.financialsettlementbackend.financialsettelmentsmanager;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,9 +27,9 @@ public class FinancialSettlement {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "describe shouldn't be null")
+    @NotBlank(message = "description shouldn't be null")
     @Length(min = 1, max = 10000)
-    private String describe;
+    private String description;
 
     private BigDecimal amountOfMoney;
 
@@ -54,9 +53,9 @@ public class FinancialSettlement {
     private LocalDateTime date;
 
 
-    public FinancialSettlement(Long id, @NotBlank(message = "describe shouldn't be null") @Max(1000) String describe, BigDecimal amountOfMoney, String uuid, FinancialSettlementStatus status, WorkUnderProject workUnderProject, Employee employee, SettlementType settlementType, LocalDateTime date) {
+    public FinancialSettlement(Long id, @NotBlank(message = "describe shouldn't be null") @Max(1000) String description, BigDecimal amountOfMoney, String uuid, FinancialSettlementStatus status, WorkUnderProject workUnderProject, Employee employee, SettlementType settlementType, LocalDateTime date) {
         this.id = id;
-        this.describe = describe;
+        this.description = description;
         this.amountOfMoney = amountOfMoney;
         this.uuid = uuid;
         this.status = status;
@@ -68,5 +67,6 @@ public class FinancialSettlement {
     }
 
     public FinancialSettlement() {
+        this.uuid = UuidGenerator.generateUuid();
     }
 }

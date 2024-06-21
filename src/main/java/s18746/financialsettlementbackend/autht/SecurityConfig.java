@@ -53,7 +53,8 @@ public class SecurityConfig {
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((autorization)
                         -> autorization
-                        .requestMatchers("/auth/register", "/auth/login", "/auth/reset-password", "/auth/reset-password/**","auth/test", "/financialsettlement/**").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login", "/auth/reset-password", "/auth/reset-password/**","auth/test",
+                                "/financialsettlement/**","/accountant/**", "/accountant/**").permitAll()
                         .requestMatchers("/auth/test2").hasRole("ADMIN")
 
                         .anyRequest().authenticated()
@@ -61,13 +62,13 @@ public class SecurityConfig {
                 .build();
     }
 
-        @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
-    SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher(PathRequest.toH2Console())
-                .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
-                .csrf(AbstractHttpConfigurer::disable)
-                .headers((headers) -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
-        return http.build();
-    }
+//        @Bean
+//    @Order(Ordered.HIGHEST_PRECEDENCE)
+//    SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
+//        http.securityMatcher(PathRequest.toH2Console())
+//                .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .headers((headers) -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+//        return http.build();
+//    }
 }

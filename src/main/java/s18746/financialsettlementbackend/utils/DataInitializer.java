@@ -118,6 +118,11 @@ public class DataInitializer {
 
         projectRepository.save(project1);
         projectRepository.save(project2);
+        User user1 = new User();
+        user1.setEmail("pikarolak12@gmail.com");
+        user1.setPassword(passwordEncoder.encode("password123"));
+        user1.setRole(Role.ROLE_ADMIN);
+        userRepository.save(user1);
 
         // Tworzenie przykładowych danych dla Employee
         for (int i = 1; i <= 10; i++) {

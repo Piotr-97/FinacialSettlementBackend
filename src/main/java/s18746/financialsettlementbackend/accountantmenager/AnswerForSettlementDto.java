@@ -12,6 +12,5 @@ public record AnswerForSettlementDto(String settlementUUID,
                                      LocalDateTime createdAt,
                                      String settlementAnswerStatus,
                                      String employeeUuid,
-                                     String employeeName
-                                     ) {
+                                     String employeeName) {
 }

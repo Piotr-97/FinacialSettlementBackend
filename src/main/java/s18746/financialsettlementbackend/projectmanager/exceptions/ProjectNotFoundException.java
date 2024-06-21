@@ -1,4 +1,4 @@
-package s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions;
+package s18746.financialsettlementbackend.projectmanager.exceptions;
 
 public class ProjectNotFoundException extends RuntimeException{
 

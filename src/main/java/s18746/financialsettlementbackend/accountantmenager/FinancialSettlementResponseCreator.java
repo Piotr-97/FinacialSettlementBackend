@@ -6,16 +6,4 @@ public class FinancialSettlementResponseCreator {
 
 
 
-
-
-    public AnswerForSettlement createNewAnswer(String answer, SettlementAnswerStatus status){
-        return AnswerForSettlement.builder()
-                .createdDate(LocalDateTime.now())
-                .anwserForSettlement(answer)
-                .settlementAnswerStatus(status)
-                .build();
-
-    }
-
-
 }

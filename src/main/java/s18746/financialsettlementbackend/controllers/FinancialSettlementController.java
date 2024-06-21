@@ -9,8 +9,10 @@ import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSe
 import s18746.financialsettlementbackend.financialsettelmentsmanager.dtos.FinancialSettlementDto;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.dtos.FinancialSettlementRequest;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementManagerFacade;
-import s18746.financialsettlementbackend.employeemanager.EmployeeDto;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.dtos.FinancialSettlementResponse;
+import s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions.FinancialSettlementNotFoundException;
+import s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions.SettlementTypeModifyException;
+import s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions.StatusChangeException;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,66 +24,67 @@ public class FinancialSettlementController {
 
     private final FinancialSettlementManagerFacade financialSettlementManagerFacade;
 
-
-
-
     @GetMapping("/{uuid}")
-    public ResponseEntity<?> getFinancialSettlementById(@PathVariable String uuid){
+    public ResponseEntity<?> getFinancialSettlementById(@PathVariable String uuid) {
         Optional<FinancialSettlement> financialSettlement = financialSettlementManagerFacade.getFinancialSettlementByUuId(uuid);
-        if(financialSettlement.isPresent()) {
-            return new ResponseEntity<>(financialSettlement,HttpStatus.OK);
+        if (financialSettlement.isPresent()) {
+            return new ResponseEntity<>(financialSettlement, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<?> deleteFinancialSettlementById(@PathVariable String uuid){
-        Optional<FinancialSettlement> financialSettlement = financialSettlementManagerFacade.getFinancialSettlementByUuId(uuid);
-//            financialSettlementManagerFacade.deleteFinancialSettlementById(id);
-            return new ResponseEntity<>(financialSettlement,HttpStatus.OK);
+    public ResponseEntity<?> deleteFinancialSettlementById(@PathVariable String uuid) {
+        try {
+            Optional<FinancialSettlement> financialSettlement = financialSettlementManagerFacade.getFinancialSettlementByUuId(uuid);
+            financialSettlementManagerFacade.deleteFinancialSettlementByUuid(uuid);
+            return new ResponseEntity<>(financialSettlement, HttpStatus.OK);
+        } catch (FinancialSettlementNotFoundException exception) {
 
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.badRequest().body(new FinancialSettlementResponse("Financial settlement not found"));
+        }
+
     }
 
     @PostMapping
-    public ResponseEntity<?> addFinancialSettlement(@RequestBody FinancialSettlementRequest financialSettlementRequest){
-
+    public ResponseEntity<?> addFinancialSettlement(@RequestBody FinancialSettlementRequest financialSettlementRequest) {
+        try {
             financialSettlementManagerFacade.createNewSettlement(financialSettlementRequest);
-           try {
-               return ResponseEntity.ok().body(new FinancialSettlementResponse("Settlement created!"));
-           }catch (Exception e){
-               return ResponseEntity.badRequest().body(new FinancialSettlementResponse("Something went wrong"));
-           }
+            return ResponseEntity.ok().body(new FinancialSettlementResponse("Settlement created!"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new FinancialSettlementResponse("Something went wrong"));
+        }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAllFinancialSettlements(){
-        List<FinancialSettlementDto> financialSettlementsDto = financialSettlementManagerFacade.getAllFinancialSettlements();
+    public ResponseEntity<?> getAllFinancialSettlements() {
+        List<FinancialSettlementDto> financialSettlementsDto = financialSettlementManagerFacade.getAllFinancialSettlementsDto();
         return new ResponseEntity<>(financialSettlementsDto,
                 HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> modifyFinancialSettlement(@RequestBody FinancialSettlement modifiedFinancialSettlement){
-        return null;
+    @PatchMapping()
+    public ResponseEntity<?> modifyFinancialSettlement(@RequestBody FinancialSettlementDto modifiedFinancialSettlement) {
+        try {
+            financialSettlementManagerFacade.updateFinancialSettlement(modifiedFinancialSettlement);
+            return ResponseEntity.ok(new FinancialSettlementResponse("Settlement modified"));
+        }catch (FinancialSettlementNotFoundException e) {
+            return ResponseEntity.badRequest().body(new FinancialSettlementResponse("Settlement not found"));
 
+        }catch (SettlementTypeModifyException  e){
+            return ResponseEntity.badRequest().body(new FinancialSettlementResponse("You can't change financial settlement type!"));
+
+        }catch (StatusChangeException e){
+            return ResponseEntity.badRequest().body(new FinancialSettlementResponse("You can't change settlement when its resolved"));
+        }
     }
 
-    @GetMapping("/employee")
-    public ResponseEntity<?> findAllFinancialSettlementByEmployee(EmployeeDto employee){
-        List<FinancialSettlementRequest> financialSettlementRequests = financialSettlementManagerFacade.getFinancialSettlementsByEmployeee(employee);
-
-        return new ResponseEntity<>(financialSettlementRequests,HttpStatus.OK);
-    }
 
     @GetMapping("/employee/{uuid}")
-    public  ResponseEntity<?> getFinancialSettlementsByEmployeeUuid(@PathVariable String uuid ){
+    public ResponseEntity<?> getFinancialSettlementsByEmployeeUuid(@PathVariable String uuid) {
         return ResponseEntity.ok(financialSettlementManagerFacade.findFinancialSettlementsByEmployeeUuid(uuid));
     }
-
-
-
 
 
 }

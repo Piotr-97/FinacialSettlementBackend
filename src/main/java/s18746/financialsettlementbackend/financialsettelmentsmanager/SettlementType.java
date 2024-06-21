@@ -2,7 +2,7 @@ package s18746.financialsettlementbackend.financialsettelmentsmanager;
 
 public enum SettlementType {
 
-    BUSSINESTRIP("businesstrip"), TAXI("TAXI"), GENERAL("general"), BUSSINESMEETING("businessmeeting");
+    BUSINESSTRIP("businesstrip"), TAXI("TAXI"), GENERAL("general"), BUSINESSMEETING("businessmeeting");
 
 
 

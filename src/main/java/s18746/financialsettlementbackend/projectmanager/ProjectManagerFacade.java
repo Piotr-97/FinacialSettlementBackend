@@ -1,7 +1,7 @@
 package s18746.financialsettlementbackend.projectmanager;
 
 import lombok.AllArgsConstructor;
-import s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions.ProjectNotFoundException;
+import s18746.financialsettlementbackend.projectmanager.exceptions.ProjectNotFoundException;
 import s18746.financialsettlementbackend.projectmanager.dtos.ProjectDto;
 import s18746.financialsettlementbackend.projectmanager.entities.Project;
 

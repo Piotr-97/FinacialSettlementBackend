@@ -8,8 +8,6 @@ import jakarta.persistence.*;
 import s18746.financialsettlementbackend.autht.User;
 import s18746.financialsettlementbackend.utils.UuidGenerator;
 
-import java.time.LocalDate;
-
 @Builder
 @Getter
 @Setter
@@ -22,6 +20,7 @@ public class Employee {
     private Long id;
     @OneToOne
     private User user;
+    @Enumerated(EnumType.STRING)
     private PositionEnum position;
     private String firstname;
     private String lastname;
