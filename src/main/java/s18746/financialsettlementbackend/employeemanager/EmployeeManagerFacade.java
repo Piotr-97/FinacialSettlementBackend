@@ -14,63 +14,61 @@ public class EmployeeManagerFacade {
     private final EmployeeRepository employeeRepository;
 
 
-    public Optional<EmployeeDto> getEmployeeDtoById(Long id){
+    public Optional<EmployeeDto> getEmployeeDtoById(Long id) {
         Optional<Employee> employee = employeeRepository.findById(id);
-        if(employee.isPresent()){
+        if (employee.isPresent()) {
             return Optional.of(mapEmployeeToDto(employee.get()));
         }
         return Optional.empty();
     }
 
-    public  Employee getEmployeeById(Long id){
+    public Employee getEmployeeById(Long id) {
         Optional<Employee> employee = employeeRepository.findById(id);
-        if(employee.isPresent()){
+        if (employee.isPresent()) {
             return employee.get();
         }
         throw new EmployeeNotFoundException("Employee not found");
     }
 
     public Optional<Employee> getEmployeeByFirstnameAndLastname(String firstname, String lastname) {
-        return employeeRepository.findByFirstnameAndLastname(firstname,lastname);
+        return employeeRepository.findByFirstnameAndLastname(firstname, lastname);
     }
 
-    public List<Employee> getAllEmployees(){
+    public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
 
     }
 
-    public  Optional<Employee> deleteEmployeeById(Long id){
+    public Optional<Employee> deleteEmployeeById(Long id) {
         Optional<Employee> workerToDelete = employeeRepository.findById(id);
-        if(workerToDelete.isPresent()){
+        if (workerToDelete.isPresent()) {
             employeeRepository.delete(workerToDelete.get());
-                return workerToDelete;
+            return workerToDelete;
         }
         return workerToDelete;
     }
 
 
-
-    public Employee updateEmployee(EmployeeDto newEmployee){
-       Optional <Employee> employeeOld = employeeRepository.findById(newEmployee.id());
-       if(employeeOld.isPresent()){
-           Employee updatedEmployee = employeeOld.get();
-           //TODO
-           if(updatedEmployee.getFirstname() != newEmployee.firstname() && newEmployee.firstname() != null){
-               updatedEmployee.setFirstname(newEmployee.firstname());
-           }
-           if(updatedEmployee.getLastname() != newEmployee.lastname() && newEmployee.lastname() != null){
-               updatedEmployee.setLastname(newEmployee.lastname());
-           }
-           employeeRepository.save(updatedEmployee);
-       }
-       return null;
+    public Employee updateEmployee(EmployeeDto newEmployee) {
+        Optional<Employee> employeeOld = employeeRepository.findById(newEmployee.id());
+        if (employeeOld.isPresent()) {
+            Employee updatedEmployee = employeeOld.get();
+            //TODO
+            if (updatedEmployee.getFirstname() != newEmployee.firstname() && newEmployee.firstname() != null) {
+                updatedEmployee.setFirstname(newEmployee.firstname());
+            }
+            if (updatedEmployee.getLastname() != newEmployee.lastname() && newEmployee.lastname() != null) {
+                updatedEmployee.setLastname(newEmployee.lastname());
+            }
+            employeeRepository.save(updatedEmployee);
+        }
+        return null;
     }
 
 
-    public Employee addEmployee(EmployeeDto employeeDto){
+    public Employee addEmployee(EmployeeDto employeeDto) {
         Employee employee = mapDtoToEmployee(employeeDto);
-
-       return employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     private Employee mapDtoToEmployee(EmployeeDto employeeDto) {
@@ -81,23 +79,25 @@ public class EmployeeManagerFacade {
                 .build();
     }
 
-    private EmployeeDto mapEmployeeToDto(Employee employee){
-        return new EmployeeDto(employee.getId(),employee.getFirstname(),employee.getLastname());
+    private EmployeeDto mapEmployeeToDto(Employee employee) {
+        return new EmployeeDto(employee.getId(), employee.getFirstname(), employee.getLastname());
     }
 
 
     public void addEmployee(RegisterEmployee registerEmployee, User newuser) {
-        Employee.builder()
+        Employee employee = Employee.builder()
                 .email(newuser.getEmail())
                 .firstname(registerEmployee.firstname())
                 .lastname(registerEmployee.lastname())
                 .user(newuser)
                 .build();
+        employee.setUuid(newuser.getUuid());
+        employeeRepository.save(employee);
     }
 
     public Employee getEmployeeByUuid(String uuid) {
         Optional<Employee> byUuid = employeeRepository.findByUuid(uuid);
-        if(byUuid.isPresent()){
+        if (byUuid.isPresent()) {
             return byUuid.get();
         }
         throw new EmployeeNotFoundException("Couldn't find employee");

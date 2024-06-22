@@ -32,9 +32,9 @@ public class AuthService {
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.login(), authRequest.password()));
             User user = (User) authenticate.getPrincipal();
             String token = jwtTokenService.generateToken(user);
-            return ResponseEntity.ok().body(new LoginResponse(authRequest.login(), token,user.getRole().toString()));
+            return ResponseEntity.ok().body(new LoginResponse(authRequest.login(), token,user.getRole().toString(), user.getUuid()));
         } catch (UsernameNotFoundException exception) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(null,null,null));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(null,null,null, null));
         }
     }
 
@@ -52,8 +52,8 @@ public class AuthService {
             user.setRole(Role.ROLE_USER);
         }
           RegisterEmployee registerEmployee = new RegisterEmployee( registerRequest.firstname(), registerRequest.lastname(), registerRequest.mobilePhone(),registerRequest.email());
-        employeeManagerFacade.addEmployee(registerEmployee,user);
         userRepository.save(user);
+        employeeManagerFacade.addEmployee(registerEmployee,user);
     }
 
     public void recoveryPassword(RecoveryPasswordData recoveryPasswordData) throws UserExistingWithNameException{

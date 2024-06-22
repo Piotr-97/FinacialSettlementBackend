@@ -31,7 +31,6 @@ public class Employee {
 
 
     public Employee() {
-        this.uuid = UuidGenerator.generateUuid();
     }
 
     public Employee(Long id, User user, String firstname, String lastname,String email, String uuid) {

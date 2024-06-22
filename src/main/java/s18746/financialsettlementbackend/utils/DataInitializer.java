@@ -137,6 +137,7 @@ public class DataInitializer {
                     .firstname("Firstname" + i)
                     .lastname("Lastname" + i)
                     .email("user" + i + "@example.com")
+                    .uuid(user.getUuid())
                     .build();
             employeeRepository.save(employee);
         }
