@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import s18746.financialsettlementbackend.accountantmenager.AccountantManagerFacade;
+import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlement;
 import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlementDto;
 import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlementResponse;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions.FinancialSettlementNotFoundException;
@@ -40,8 +41,8 @@ public class AccountantManagerController {
 
     public ResponseEntity<?> addAnswerForSettlement(@RequestBody AnswerForSettlementDto answerForSettlementDto){
         try {
-            accountantManagerFacade.createResponseForSettlement(answerForSettlementDto);
-            return ResponseEntity.ok("Answer Created!");
+            AnswerForSettlement responseForSettlement = accountantManagerFacade.createResponseForSettlement(answerForSettlementDto);
+            return ResponseEntity.ok(responseForSettlement);
         }catch (FinancialSettlementNotFoundException e){
             return ResponseEntity.badRequest().body(new AnswerForSettlementResponse(e.getMessage()));
         }

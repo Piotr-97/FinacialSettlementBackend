@@ -75,5 +75,15 @@ public class AuthService {
         }
         throw  new UserExistingWithNameException("User Doesn't exist");
     }
+
+    public void changeRole(String uuid, String role){
+        Optional<User> userByUuid = userRepository.findUserByUuid(uuid);
+        if(userByUuid.isPresent()){
+            userByUuid.get().setRole(Role.valueOf(role));
+            userRepository.save(userByUuid.get());
+            return;
+        }
+        throw new UserWithUuidNotFoundException("User not found");
+    }
 }
 

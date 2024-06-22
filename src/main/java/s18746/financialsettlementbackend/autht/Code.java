@@ -6,7 +6,8 @@ public enum Code {
     USERNAME_ERROR("Username doesn't exists"),
     INVALID_TOKEN("Incorrect or empty token"),
     PERMIT("Access granted"),
-    LOGIN_ALREADY_EXISTS("User with given login already exists");
+    LOGIN_ALREADY_EXISTS("User with given login already exists"),
+    USER_NOT_EXISTS("User not exits in database");
 
     public final String label;
 

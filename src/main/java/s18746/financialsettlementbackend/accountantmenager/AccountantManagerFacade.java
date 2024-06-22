@@ -3,7 +3,6 @@ package s18746.financialsettlementbackend.accountantmenager;
 
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementManagerFacade;
-import s18746.financialsettlementbackend.financialsettelmentsmanager.dtos.FinancialSettlementDto;
 import s18746.financialsettlementbackend.pdfcreator.PdfCreatorFacade;
 import s18746.financialsettlementbackend.utils.AnswerForSettlementMapper;
 
@@ -28,9 +27,6 @@ public class AccountantManagerFacade {
         this.financialSettlementManagerFacade = financialSettlementManagerFacade;
         this.answerForSettlementRepository = answerForSettlementRepository;
         this.pdfCreatorFacade = pdfCreatorFacade;
-    }
-
-    public void addResponseToSettlement(AnswerForSettlementDto answerForSettlementDto) {
     }
 
     public AnswerForSettlement createResponseForSettlement(AnswerForSettlementDto answerForSettlementDto) {

@@ -1,6 +1,7 @@
 package s18746.financialsettlementbackend.employeemanager;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 
@@ -18,10 +19,10 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @OneToOne
+    @JsonIgnore
     private User user;
-    @Enumerated(EnumType.STRING)
-    private PositionEnum position;
     private String firstname;
     private String lastname;
     private String email;
@@ -33,19 +34,17 @@ public class Employee {
         this.uuid = UuidGenerator.generateUuid();
     }
 
-    public Employee(Long id, User user, PositionEnum position, String firstname, String lastname,String email, String uuid) {
+    public Employee(Long id, User user, String firstname, String lastname,String email, String uuid) {
         this.id = id;
         this.user = user;
-        this.position = position;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.uuid = UuidGenerator.generateUuid();
     }
-    public Employee(Long id, User user, PositionEnum position, String firstname, String lastname,String email) {
+    public Employee(Long id, User user, String firstname, String lastname,String email) {
         this.id = id;
         this.user = user;
-        this.position = position;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;

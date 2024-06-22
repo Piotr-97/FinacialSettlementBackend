@@ -87,7 +87,12 @@ public class EmployeeManagerFacade {
 
 
     public void addEmployee(RegisterEmployee registerEmployee, User newuser) {
-        //save new employee
+        Employee.builder()
+                .email(newuser.getEmail())
+                .firstname(registerEmployee.firstname())
+                .lastname(registerEmployee.lastname())
+                .user(newuser)
+                .build();
     }
 
     public Employee getEmployeeByUuid(String uuid) {

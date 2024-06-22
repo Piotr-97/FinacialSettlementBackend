@@ -134,7 +134,6 @@ public class DataInitializer {
 
             Employee employee = Employee.builder()
                     .user(user)
-                    .position(PositionEnum.values()[i % PositionEnum.values().length])
                     .firstname("Firstname" + i)
                     .lastname("Lastname" + i)
                     .email("user" + i + "@example.com")
