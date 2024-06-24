@@ -31,15 +31,14 @@ public class ProjectManagerFacade {
     public ProjectDto getProjectByProjectDto(ProjectDto projectDto) throws Exception {
         Optional<Project> project = projectRepository.findById(projectDto.id());
         if (project.isPresent()) {
-            return mapProjectToDto(project.get());
         }
         throw new Exception("aaa");
     }
 
-    public Project getProjectByid(String id) throws  ProjectNotFoundException{
-        Long idLong = Long.parseLong(id);
-        Optional<Project> project = projectRepository.findById(idLong);
-        if (project.isPresent()){
+    public Project getProjectByUuid(String uuid) throws ProjectNotFoundException {
+
+        Optional<Project> project = projectRepository.findProjectByUuid(uuid);
+        if (project.isPresent()) {
             return project.get();
         }
         throw new ProjectNotFoundException("Project not found");
@@ -48,7 +47,7 @@ public class ProjectManagerFacade {
 
     public void addProject(ProjectRequest projectRequest) {
         Optional<Client> clientByUuid = clientRepository.findClientByUuid(projectRequest.clientUuid());
-        if(clientByUuid.isPresent()) {
+        if (clientByUuid.isPresent()) {
             Project project = Project.builder()
                     .client(clientByUuid.get())
                     .workUnderProject(Collections.emptySet())
@@ -76,13 +75,13 @@ public class ProjectManagerFacade {
         List<Client> clients = clientRepository.findAll();
         List<ClientResponse> clientsResponse = new ArrayList<>();
         clients.forEach(x -> clientsResponse.add(
-                new ClientResponse(x.getUuid(),x.getName(),x.getNip(),x.getAddress().getStreet())));
+                new ClientResponse(x.getUuid(), x.getName(), x.getNip(), x.getAddress().getStreet())));
         return clientsResponse;
     }
 
     public void addClient(ClientRequest clientRequest) {
         Optional<Address> addressByUuid = addressRepository.findAddressByUuid(clientRequest.addressUuid());
-        if(addressByUuid.isPresent()) {
+        if (addressByUuid.isPresent()) {
             Client client = Client.builder()
                     .name(clientRequest.name())
                     .nip(clientRequest.nip())
@@ -96,6 +95,9 @@ public class ProjectManagerFacade {
 
     public List<ProjectResponse> getAllProjects() {
         List<Project> projects = projectRepository.findAll();
+        List<ProjectResponse> list = new ArrayList<>();
+        projects.forEach(x -> list.add(new ProjectResponse(x.getName(),x.getClient().getName(),x.getUuid())));
 
+        return list;
     }
 }

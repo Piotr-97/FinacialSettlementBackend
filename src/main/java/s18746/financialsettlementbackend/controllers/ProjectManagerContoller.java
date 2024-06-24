@@ -39,9 +39,11 @@ public class ProjectManagerContoller {
         return ResponseEntity.ok(allProjects);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Project> getProjectByid(@PathVariable Long id){
-        return null;
+    @GetMapping("/{uuid}")
+    public ResponseEntity<Project> getProjectByUuid(@PathVariable String uuid){
+        Project projectByUuid = projectManagerFacade.getProjectByUuid(uuid);
+
+        return  ResponseEntity.ok(projectByUuid);
     }
 
 

@@ -1,15 +1,16 @@
 package s18746.financialsettlementbackend.projectmanager.entities;
 
 
-import lombok.*;
-
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import s18746.financialsettlementbackend.utils.UuidGenerator;
+
 import java.util.Set;
 
 @Entity
-@AllArgsConstructor
 @Builder
-@NoArgsConstructor
 @Getter
 @Setter
 public class Project {
@@ -26,8 +27,21 @@ public class Project {
     @JoinColumn(name = "client_id")
     private Client client;
 
+    private String uuid;
+
 
     @OneToMany
     private Set<WorkUnderProject> workUnderProject;
 
+    public Project(Long id, String name, Client client, String uuid, Set<WorkUnderProject> workUnderProject) {
+        this.id = id;
+        this.name = name;
+        this.client = client;
+        this.uuid = UuidGenerator.generateUuid();
+        this.workUnderProject = workUnderProject;
+    }
+
+    public Project() {
+        this.uuid = UuidGenerator.generateUuid();
+    }
 }
