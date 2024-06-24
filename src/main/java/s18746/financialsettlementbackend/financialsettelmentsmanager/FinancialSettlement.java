@@ -27,7 +27,7 @@ public class FinancialSettlement {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "description shouldn't be null")
+    @NotBlank(message = "answerForSettlement shouldn't be null")
     @Length(min = 1, max = 10000)
     private String description;
 

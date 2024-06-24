@@ -1,4 +1,4 @@
-package s18746.financialsettlementbackend.accountantmenager;
+package s18746.financialsettlementbackend.accountantmenager.dtos;
 
 import lombok.Builder;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;

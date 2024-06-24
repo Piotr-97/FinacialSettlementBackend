@@ -1,4 +1,4 @@
-package s18746.financialsettlementbackend.pdfcreator;
+package s18746.financialsettlementbackend.accountantmenager;
 
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -23,7 +23,7 @@ import static com.itextpdf.layout.property.TextAlignment.CENTER;
 
 @AllArgsConstructor
 @Service
-public class PdfCreatorFacade {
+public class PdfCreator {
 
 
     public byte[] createReport(List<FinancialSettlement> settlements) {

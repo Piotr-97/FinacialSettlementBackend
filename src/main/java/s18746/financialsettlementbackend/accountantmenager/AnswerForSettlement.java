@@ -33,17 +33,17 @@ public class AnswerForSettlement {
     private FinancialSettlement financialSettlement;
 
 
-    private String anwserForSettlement;
+    private String answerForSettlement;
 
     private SettlementAnswerStatus settlementAnswerStatus;
 
 
-    public AnswerForSettlement(Long id, String uuid, LocalDateTime createdDate, FinancialSettlement financialSettlement, String anwserForSettlement, SettlementAnswerStatus settlementAnswerStatus) {
+    public AnswerForSettlement(Long id, String uuid, LocalDateTime createdDate, FinancialSettlement financialSettlement, String answerForSettlement, SettlementAnswerStatus settlementAnswerStatus) {
         this.id = id;
         this.uuid = uuid;
         this.createdDate = createdDate;
         this.financialSettlement = financialSettlement;
-        this.anwserForSettlement = anwserForSettlement;
+        this.answerForSettlement = answerForSettlement;
         this.settlementAnswerStatus = settlementAnswerStatus;
         this.uuid = UuidGenerator.generateUuid();
 

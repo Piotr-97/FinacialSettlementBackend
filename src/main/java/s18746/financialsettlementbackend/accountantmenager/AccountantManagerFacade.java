@@ -1,9 +1,10 @@
 package s18746.financialsettlementbackend.accountantmenager;
 
 
+import s18746.financialsettlementbackend.accountantmenager.dtos.AnswerForSettlementDto;
+import s18746.financialsettlementbackend.accountantmenager.dtos.AnswerForSettlementRequest;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementManagerFacade;
-import s18746.financialsettlementbackend.pdfcreator.PdfCreatorFacade;
 import s18746.financialsettlementbackend.utils.AnswerForSettlementMapper;
 
 import java.time.LocalDateTime;
@@ -15,28 +16,28 @@ import static s18746.financialsettlementbackend.utils.AnswerForSettlementMapper.
 public class AccountantManagerFacade {
 
 
-    private final FinancialSettlementResponseCreator financialSettlementResponseCreator;
 
     private final FinancialSettlementManagerFacade financialSettlementManagerFacade;
     private final AnswerForSettlementRepository answerForSettlementRepository;
 
-    private final PdfCreatorFacade pdfCreatorFacade;
+    private final PdfCreator pdfCreatorFacade;
 
-    public AccountantManagerFacade(FinancialSettlementResponseCreator financialSettlementResponseCreator, FinancialSettlementManagerFacade financialSettlementManagerFacade, AnswerForSettlementRepository answerForSettlementRepository, PdfCreatorFacade pdfCreatorFacade) {
-        this.financialSettlementResponseCreator = financialSettlementResponseCreator;
+    public AccountantManagerFacade(FinancialSettlementManagerFacade financialSettlementManagerFacade, AnswerForSettlementRepository answerForSettlementRepository, PdfCreator pdfCreatorFacade) {
         this.financialSettlementManagerFacade = financialSettlementManagerFacade;
         this.answerForSettlementRepository = answerForSettlementRepository;
         this.pdfCreatorFacade = pdfCreatorFacade;
     }
 
-    public AnswerForSettlement createResponseForSettlement(AnswerForSettlementDto answerForSettlementDto) {
-        FinancialSettlement settlementByUUid = financialSettlementManagerFacade.findSettlementByUUid(answerForSettlementDto.settlementUUID());
-        return AnswerForSettlement.builder()
+    public AnswerForSettlement createResponseForSettlement(AnswerForSettlementRequest answerForSettlementRequest) {
+        FinancialSettlement settlementByUUid = financialSettlementManagerFacade.findSettlementByUUid(answerForSettlementRequest.settlementUuid());
+        AnswerForSettlement answerForSettlement = AnswerForSettlement.builder()
                 .createdDate(LocalDateTime.now())
-                .anwserForSettlement(answerForSettlementDto.answerForSettlement())
-                .settlementAnswerStatus(SettlementAnswerStatus.valueOf(answerForSettlementDto.answerForSettlement()))
+                .answerForSettlement(answerForSettlementRequest.answerForSettlement())
+                .settlementAnswerStatus(SettlementAnswerStatus.valueOf(answerForSettlementRequest.settlementAnswerStatus()))
                 .financialSettlement(settlementByUUid)
                 .build();
+       return answerForSettlementRepository.save(answerForSettlement);
+
     }
 
 

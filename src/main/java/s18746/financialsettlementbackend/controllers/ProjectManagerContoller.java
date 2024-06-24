@@ -4,10 +4,11 @@ package s18746.financialsettlementbackend.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import s18746.financialsettlementbackend.projectmanager.ProjectResponse;
+import s18746.financialsettlementbackend.projectmanager.dtos.*;
 import s18746.financialsettlementbackend.projectmanager.ProjectManagerFacade;
-import s18746.financialsettlementbackend.projectmanager.dtos.ProjectDto;
-import s18746.financialsettlementbackend.projectmanager.dtos.WorkUnderProjectDto;
 import s18746.financialsettlementbackend.projectmanager.entities.Project;
+import s18746.financialsettlementbackend.projectmanager.exceptions.ClientNotFoundException;
 
 import java.util.List;
 
@@ -23,14 +24,19 @@ public class ProjectManagerContoller {
 
 
     @PostMapping
-    public ResponseEntity<Project> addProject(ProjectDto projectDto){
-
-        return null;
+    public ResponseEntity<?> addProject(ProjectRequest projectRequest ){
+        try {
+            projectManagerFacade.addProject(projectRequest);
+            return  ResponseEntity.ok(new ProjectCodeResponse("success"));
+        }catch (ClientNotFoundException clientNotFoundException){
+            return ResponseEntity.badRequest().body(new ProjectCodeResponse(clientNotFoundException.getMessage()));
+        }
     }
 
     @GetMapping
-    public  ResponseEntity<List<ProjectDto>> getAllProjects(){
-        return null;
+    public  ResponseEntity<?> getAllProjects(){
+        List<ProjectResponse> allProjects = projectManagerFacade.getAllProjects();
+        return ResponseEntity.ok(allProjects);
     }
 
     @GetMapping("/{id}")
@@ -57,6 +63,18 @@ public class ProjectManagerContoller {
     @PostMapping("/works")
     public ResponseEntity<WorkUnderProjectDto> addNewWorkUnderProject(@RequestBody WorkUnderProjectDto workUnderProjectDto){
         return null;
+    }
+
+    @GetMapping("/clients")
+    public ResponseEntity<?> getAllclients(){
+        List<ClientResponse>  clients = projectManagerFacade.getAllClients();
+        return ResponseEntity.ok(clients);
+    }
+
+    @PostMapping("/clients")
+    public ResponseEntity<?> addNewClient(@RequestBody ClientRequest clientRequest){
+        projectManagerFacade.addClient(clientRequest);
+        return  ResponseEntity.ok(clientRequest);
     }
 
 

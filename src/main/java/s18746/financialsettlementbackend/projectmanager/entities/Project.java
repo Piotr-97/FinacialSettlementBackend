@@ -1,16 +1,14 @@
 package s18746.financialsettlementbackend.projectmanager.entities;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 @Getter
 @Setter

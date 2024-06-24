@@ -27,7 +27,7 @@ public class WorkUnderProject {
 
     private String name;
 
-    private String describe;
+    private String description;
 
     @OneToMany(mappedBy = "workUnderProject")
     private Set<FinancialSettlement> financialSettlements;

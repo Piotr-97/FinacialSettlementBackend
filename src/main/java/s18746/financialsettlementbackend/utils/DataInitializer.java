@@ -11,7 +11,6 @@ import s18746.financialsettlementbackend.autht.User;
 import s18746.financialsettlementbackend.autht.UserRepository;
 import s18746.financialsettlementbackend.employeemanager.Employee;
 import s18746.financialsettlementbackend.employeemanager.EmployeeRepository;
-import s18746.financialsettlementbackend.employeemanager.PositionEnum;
 import s18746.financialsettlementbackend.projectmanager.repositories.WorkUnderProjectRepository;
 import s18746.financialsettlementbackend.projectmanager.ProjectRepository;
 import s18746.financialsettlementbackend.projectmanager.entities.Address;
@@ -94,14 +93,14 @@ public class DataInitializer {
         work1.setId(67890L);
         work1.setProject(project1);
         work1.setName("Work One");
-        work1.setDescribe("Description of Work One");
+        work1.setDescription("Description of Work One");
         work1.setFinancialSettlements(new HashSet<>());
 
         WorkUnderProject work2 = new WorkUnderProject();
         work1.setId(1L);
         work2.setProject(project2);
         work2.setName("Work Two");
-        work2.setDescribe("Description of Work Two");
+        work2.setDescription("Description of Work Two");
         work2.setFinancialSettlements(new HashSet<>());
 
         workUnderProjectRepository.save(work1);
