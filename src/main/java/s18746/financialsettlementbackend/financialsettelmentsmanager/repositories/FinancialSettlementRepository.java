@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface FinancialSettlementRepository extends JpaRepository<FinancialSettlement,Long> {
 
     List<FinancialSettlement> findAllByEmployeeId(Long employee_id);
+    List<FinancialSettlement> findAllByEmployeeUuid(String uuid);
     Optional<FinancialSettlement> findFinancialSettlementByUuid(String uuid);
 
 

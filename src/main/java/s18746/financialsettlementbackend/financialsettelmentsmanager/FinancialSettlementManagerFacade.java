@@ -114,10 +114,9 @@ public class FinancialSettlementManagerFacade {
     }
 
     public List<FinancialSettlementDto> getAllFinancialSettlementsDto() {
-        List<FinancialSettlementDto> settlementDtos = financialSettlementRepository.findAll().stream()
+        return financialSettlementRepository.findAll().stream()
                 .map(SettlementMapper::mapSettlementToDto)
                 .toList();
-        return settlementDtos;
     }
 
     public List<FinancialSettlement> getAllFinancialSettlements() {
@@ -148,6 +147,13 @@ public class FinancialSettlementManagerFacade {
                 .toList();
     }
 
+    public List<FinancialSettlementDto> findFinancialSettlementsByWorkUnderProjectUuid(String uuid){
+        WorkUnderProject workUnderProject = workUnderProjectFacade.findWorkUnderProjectByUUid(uuid);
+
+        return workUnderProject.getFinancialSettlements().stream()
+                .map(SettlementMapper::mapSettlementToDto)
+                .toList();
+    }
     public void deleteFinancialSettlementByUuid(String uuid) {
         Optional<FinancialSettlement> financialSettlement = financialSettlementRepository.findFinancialSettlementByUuid(uuid);
         if (financialSettlement.isPresent()) {

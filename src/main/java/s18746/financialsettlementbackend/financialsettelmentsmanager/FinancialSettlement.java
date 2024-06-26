@@ -57,7 +57,6 @@ public class FinancialSettlement {
         this.id = id;
         this.description = description;
         this.amountOfMoney = amountOfMoney;
-        this.uuid = uuid;
         this.status = status;
         this.workUnderProject = workUnderProject;
         this.employee = employee;

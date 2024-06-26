@@ -3,13 +3,16 @@ package s18746.financialsettlementbackend.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-import s18746.financialsettlementbackend.projectmanager.ProjectResponse;
+import s18746.financialsettlementbackend.projectmanager.dtos.ProjectResponse;
 import s18746.financialsettlementbackend.projectmanager.dtos.*;
 import s18746.financialsettlementbackend.projectmanager.ProjectManagerFacade;
 import s18746.financialsettlementbackend.projectmanager.entities.Project;
+import s18746.financialsettlementbackend.projectmanager.entities.WorkUnderProject;
 import s18746.financialsettlementbackend.projectmanager.exceptions.ClientNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,10 +43,18 @@ public class ProjectManagerContoller {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<Project> getProjectByUuid(@PathVariable String uuid){
+    public ResponseEntity<?> getProjectByUuid(@PathVariable String uuid){
         Project projectByUuid = projectManagerFacade.getProjectByUuid(uuid);
+        List<WorkUnderProjectResponse> workUnderProjects;
+            workUnderProjects = new ArrayList<>();
+            for (WorkUnderProject w:
+                    projectByUuid.getWorkUnderProject()) {
+                workUnderProjects.add(new WorkUnderProjectResponse(w.getUuid(),w.getName(), projectByUuid.getUuid(), w.getDescription()));
+            }
+        ProjectResponse projectResponse = new ProjectResponse(projectByUuid.getName(), projectByUuid.getClient().getName(), projectByUuid.getUuid(), workUnderProjects);
 
-        return  ResponseEntity.ok(projectByUuid);
+
+        return  ResponseEntity.ok(projectResponse);
     }
 
 

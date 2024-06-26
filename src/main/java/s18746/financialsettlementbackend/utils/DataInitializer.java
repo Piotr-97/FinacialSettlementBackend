@@ -11,6 +11,10 @@ import s18746.financialsettlementbackend.autht.User;
 import s18746.financialsettlementbackend.autht.UserRepository;
 import s18746.financialsettlementbackend.employeemanager.Employee;
 import s18746.financialsettlementbackend.employeemanager.EmployeeRepository;
+import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
+import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlementStatus;
+import s18746.financialsettlementbackend.financialsettelmentsmanager.SettlementType;
+import s18746.financialsettlementbackend.financialsettelmentsmanager.repositories.FinancialSettlementRepository;
 import s18746.financialsettlementbackend.projectmanager.repositories.WorkUnderProjectRepository;
 import s18746.financialsettlementbackend.projectmanager.ProjectRepository;
 import s18746.financialsettlementbackend.projectmanager.entities.Address;
@@ -20,7 +24,11 @@ import s18746.financialsettlementbackend.projectmanager.entities.WorkUnderProjec
 import s18746.financialsettlementbackend.projectmanager.repositories.AddressRepository;
 import s18746.financialsettlementbackend.projectmanager.repositories.ClientRepository;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -47,6 +55,8 @@ public class DataInitializer {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    FinancialSettlementRepository financialSettlementRepository;
 
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady() {
@@ -88,9 +98,8 @@ public class DataInitializer {
         projectRepository.save(project1);
         projectRepository.save(project2);
 
-        // Tworzenie przykładowych danych dla WorkUnderProject
         WorkUnderProject work1 = new WorkUnderProject();
-        work1.setId(67890L);
+        work1.setId(2L);
         work1.setProject(project1);
         work1.setName("Work One");
         work1.setDescription("Description of Work One");
@@ -122,7 +131,7 @@ public class DataInitializer {
         user1.setPassword(passwordEncoder.encode("password123"));
         user1.setRole(Role.ROLE_ADMIN);
         userRepository.save(user1);
-
+        List<Employee> employeeList = new ArrayList<>();
         // Tworzenie przykładowych danych dla Employee
         for (int i = 1; i <= 10; i++) {
             User user = new User();
@@ -136,9 +145,26 @@ public class DataInitializer {
                     .firstname("Firstname" + i)
                     .lastname("Lastname" + i)
                     .email("user" + i + "@example.com")
-                    .uuid(user.getUuid())
                     .build();
+            employee.setUuid(user.getUuid());
             employeeRepository.save(employee);
+            employeeList.add(employee);
+        }
+
+
+
+        for (int i = 1; i <= 10; i++) {
+            FinancialSettlement settlement = FinancialSettlement.builder()
+                    .description("Settlement description " + i)
+                    .amountOfMoney(BigDecimal.valueOf(1000 + i * 100))
+                    .status(FinancialSettlementStatus.PENDING)
+                    .workUnderProject(i % 2 == 0 ? work1 : work2)
+                    .employee(employeeList.get(i-1))
+                            .settlementType(SettlementType.GENERAL)
+                    .date(LocalDateTime.now().minusDays(i))
+                    .uuid(UuidGenerator.generateUuid())
+                    .build();
+            financialSettlementRepository.save(settlement);
         }
     }
 }

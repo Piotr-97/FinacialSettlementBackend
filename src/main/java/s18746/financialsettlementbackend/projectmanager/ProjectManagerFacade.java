@@ -1,15 +1,13 @@
 package s18746.financialsettlementbackend.projectmanager;
 
 import lombok.AllArgsConstructor;
-import s18746.financialsettlementbackend.projectmanager.dtos.ClientRequest;
-import s18746.financialsettlementbackend.projectmanager.dtos.ClientResponse;
-import s18746.financialsettlementbackend.projectmanager.dtos.ProjectRequest;
+import s18746.financialsettlementbackend.projectmanager.dtos.*;
 import s18746.financialsettlementbackend.projectmanager.entities.Address;
 import s18746.financialsettlementbackend.projectmanager.entities.Client;
+import s18746.financialsettlementbackend.projectmanager.entities.WorkUnderProject;
 import s18746.financialsettlementbackend.projectmanager.exceptions.AddressNotFoundException;
 import s18746.financialsettlementbackend.projectmanager.exceptions.ClientNotFoundException;
 import s18746.financialsettlementbackend.projectmanager.exceptions.ProjectNotFoundException;
-import s18746.financialsettlementbackend.projectmanager.dtos.ProjectDto;
 import s18746.financialsettlementbackend.projectmanager.entities.Project;
 import s18746.financialsettlementbackend.projectmanager.repositories.AddressRepository;
 import s18746.financialsettlementbackend.projectmanager.repositories.ClientRepository;
@@ -96,7 +94,20 @@ public class ProjectManagerFacade {
     public List<ProjectResponse> getAllProjects() {
         List<Project> projects = projectRepository.findAll();
         List<ProjectResponse> list = new ArrayList<>();
-        projects.forEach(x -> list.add(new ProjectResponse(x.getName(),x.getClient().getName(),x.getUuid())));
+        List<WorkUnderProjectResponse> workUnderProjects;
+        for (Project x :
+                projects) {
+            workUnderProjects = new ArrayList<>();
+            for (WorkUnderProject w:
+                 x.getWorkUnderProject()) {
+                workUnderProjects.add(new WorkUnderProjectResponse(w.getUuid(),w.getName(), x.getUuid(), w.getDescription()));
+            }
+
+            list.add(new ProjectResponse(x.getName(),x.getClient().getName(),x.getUuid(),workUnderProjects));
+        }
+
+
+//        projects.forEach(x -> list.add(new ProjectResponse(x.getName(),x.getClient().getName(),x.getUuid())));
 
         return list;
     }

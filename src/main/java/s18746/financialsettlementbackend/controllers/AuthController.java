@@ -50,14 +50,19 @@ public class AuthController {
         }
     }
 
-    @PostMapping()
+    @PatchMapping("/change-role")
     public ResponseEntity<?> changeRole(@RequestBody RoleChangeData roleChangeData){
         try {
-            authService.changeRole(roleChangeData.uuid(),roleChangeData.role());
+            authService.changeRole(roleChangeData.email(),roleChangeData.role());
             return ResponseEntity.ok(new AuthResponse(Code.SUCCESS));
         }catch (UserExistingWithNameException e){
             return ResponseEntity.status(400).body(new AuthResponse(Code.USER_NOT_EXISTS));
         }
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<?> getAllUsers(){
+        return  ResponseEntity.ok(authService.getUsers());
     }
 
 

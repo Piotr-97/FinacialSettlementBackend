@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlementResponse;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.FinancialSettlement;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.dtos.FinancialSettlementDto;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.dtos.FinancialSettlementRequest;
@@ -13,6 +14,7 @@ import s18746.financialsettlementbackend.financialsettelmentsmanager.dtos.Financ
 import s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions.FinancialSettlementNotFoundException;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions.SettlementTypeModifyException;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions.StatusChangeException;
+import s18746.financialsettlementbackend.projectmanager.WorkUnderProjectException;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,21 +71,30 @@ public class FinancialSettlementController {
         try {
             financialSettlementManagerFacade.updateFinancialSettlement(modifiedFinancialSettlement);
             return ResponseEntity.ok(new FinancialSettlementResponse("Settlement modified"));
-        }catch (FinancialSettlementNotFoundException e) {
+        } catch (FinancialSettlementNotFoundException e) {
             return ResponseEntity.badRequest().body(new FinancialSettlementResponse("Settlement not found"));
 
-        }catch (SettlementTypeModifyException  e){
+        } catch (SettlementTypeModifyException e) {
             return ResponseEntity.badRequest().body(new FinancialSettlementResponse("You can't change financial settlement type!"));
 
-        }catch (StatusChangeException e){
+        } catch (StatusChangeException e) {
             return ResponseEntity.badRequest().body(new FinancialSettlementResponse("You can't change settlement when its resolved"));
         }
     }
 
 
     @GetMapping("/employee/{uuid}")
-    public ResponseEntity<?> getFinancialSettlementsByEmployeeUuid(@PathVariable String uuid) {
+        public ResponseEntity<?> getFinancialSettlementsByEmployeeUuid(@PathVariable String uuid) {
         return ResponseEntity.ok(financialSettlementManagerFacade.findFinancialSettlementsByEmployeeUuid(uuid));
+    }
+
+    @GetMapping("work/{uuid}")
+    public ResponseEntity<?> getFinancialSettlementsByWorkUnderProjectUuid(@PathVariable String uuid) {
+        try {
+            return ResponseEntity.ok(financialSettlementManagerFacade.findFinancialSettlementsByWorkUnderProjectUuid(uuid));
+        } catch (WorkUnderProjectException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

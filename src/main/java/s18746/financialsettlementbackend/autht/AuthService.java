@@ -13,6 +13,8 @@ import s18746.financialsettlementbackend.employeemanager.EmployeeManagerFacade;
 import s18746.financialsettlementbackend.employeemanager.RegisterEmployee;
 import s18746.financialsettlementbackend.messagesender.MessageSenderFacade;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -76,14 +78,22 @@ public class AuthService {
         throw  new UserExistingWithNameException("User Doesn't exist");
     }
 
-    public void changeRole(String uuid, String role){
-        Optional<User> userByUuid = userRepository.findUserByUuid(uuid);
+    public void changeRole(String email, String role){
+        Optional<User> userByUuid = userRepository.findUserByEmail(email);
         if(userByUuid.isPresent()){
             userByUuid.get().setRole(Role.valueOf(role));
             userRepository.save(userByUuid.get());
             return;
         }
         throw new UserWithUuidNotFoundException("User not found");
+    }
+
+
+    public List<UsersForListDto> getUsers(){
+        List<User> users = userRepository.findAll();
+        List<UsersForListDto> mappedUsers = new ArrayList<>();
+        users.forEach(x -> mappedUsers.add(new UsersForListDto(x.getEmail(),x.getRole().toString())));
+        return mappedUsers;
     }
 }
 
