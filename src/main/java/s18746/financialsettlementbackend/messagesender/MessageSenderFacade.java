@@ -8,8 +8,6 @@ import org.springframework.core.io.Resource;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import s18746.financialsettlementbackend.employeemanager.Employee;
-
-
 import java.io.IOException;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class MessageSenderFacade {
     public void sendPasswordRecovery(String email, String uuid){
         try{
             String html = Files.toString(resetPasswordMailTemplate.getFile(), Charsets.UTF_8);
-            html = html.replace("href=\"https://google.com\"","href=\""+frontendUrl+"/password-recover/"+uuid+"\"");
+            html = html.replace("href=\"https://google.com\"","href=\""+frontendUrl+"/password-recover/"+uuid);
             html = html.replace("link2",frontendUrl+"/password-recover/"+uuid);
             messageSenderConfiguration.sendMail(email, html,"Password recovery",true);
         }catch (IOException e){

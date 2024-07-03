@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import s18746.financialsettlementbackend.autht.InvitationData;
 import s18746.financialsettlementbackend.messagesender.InvitationResponse;
 import s18746.financialsettlementbackend.messagesender.MessageSenderFacade;
 import s18746.financialsettlementbackend.messagesender.ReminderDto;
@@ -21,9 +22,9 @@ public class MessageSenderController {
 
 
     @PostMapping("/invite")
-    public ResponseEntity<?> sendInvitation(@RequestBody @Valid String email){
+    public ResponseEntity<?> sendInvitation(@RequestBody @Valid InvitationData invitationData){
         try {
-            messageSenderFacade.sendInvitationToApplication(email);
+            messageSenderFacade.sendInvitationToApplication(invitationData.email());
             return ResponseEntity.ok(new InvitationResponse("The invitation has been successfully sent"));
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
