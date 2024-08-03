@@ -6,6 +6,9 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlement;
+import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlementRepository;
+import s18746.financialsettlementbackend.accountantmenager.SettlementAnswerStatus;
 import s18746.financialsettlementbackend.autht.Role;
 import s18746.financialsettlementbackend.autht.User;
 import s18746.financialsettlementbackend.autht.UserRepository;
@@ -35,32 +38,31 @@ import java.util.Set;
 @Component
 public class DataInitializer {
 
-    @Autowired
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
+    private final ClientRepository clientRepository;
+    private final WorkUnderProjectRepository workUnderProjectRepository;
+    private final AddressRepository addressRepository;
+    private final EmployeeRepository employeeRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+   private final FinancialSettlementRepository financialSettlementRepository;
 
-    @Autowired
-    private ClientRepository clientRepository;
+   private final AnswerForSettlementRepository answerForSettlementRepository;
 
-    @Autowired
-    private WorkUnderProjectRepository workUnderProjectRepository;
-
-    @Autowired
-    private AddressRepository addressRepository;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
-    @Autowired
-    FinancialSettlementRepository financialSettlementRepository;
+    public DataInitializer(ProjectRepository projectRepository, ClientRepository clientRepository, WorkUnderProjectRepository workUnderProjectRepository, AddressRepository addressRepository, EmployeeRepository employeeRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, FinancialSettlementRepository financialSettlementRepository, AnswerForSettlementRepository answerForSettlementRepository) {
+        this.projectRepository = projectRepository;
+        this.clientRepository = clientRepository;
+        this.workUnderProjectRepository = workUnderProjectRepository;
+        this.addressRepository = addressRepository;
+        this.employeeRepository = employeeRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.financialSettlementRepository = financialSettlementRepository;
+        this.answerForSettlementRepository = answerForSettlementRepository;
+    }
 
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady() {
-        // Tworzenie przykładowych danych dla Address
         Address address1 = Address.builder()
                 .street("123 Main St")
                 .build();
@@ -72,7 +74,7 @@ public class DataInitializer {
         addressRepository.save(address1);
         addressRepository.save(address2);
 
-        // Tworzenie przykładowych danych dla Client
+
         Client client1 = new Client();
         client1.setName("Client One");
         client1.setNip("1234567890");
@@ -86,7 +88,6 @@ public class DataInitializer {
         clientRepository.save(client1);
         clientRepository.save(client2);
 
-        // Tworzenie przykładowych danych dla Project
         Project project1 = new Project();
         project1.setName("Project One");
         project1.setClient(client1);
@@ -115,7 +116,6 @@ public class DataInitializer {
         workUnderProjectRepository.save(work1);
         workUnderProjectRepository.save(work2);
 
-        // Ustawienie workUnderProject w Project
         Set<WorkUnderProject> worksForProject1 = new HashSet<>();
         worksForProject1.add(work1);
         project1.setWorkUnderProject(worksForProject1);
@@ -132,7 +132,6 @@ public class DataInitializer {
         user1.setRole(Role.ROLE_ADMIN);
         userRepository.save(user1);
         List<Employee> employeeList = new ArrayList<>();
-        // Tworzenie przykładowych danych dla Employee
         for (int i = 1; i <= 10; i++) {
             User user = new User();
             user.setEmail("user" + i + "@example.com");
@@ -152,19 +151,30 @@ public class DataInitializer {
         }
 
 
-
         for (int i = 1; i <= 10; i++) {
             FinancialSettlement settlement = FinancialSettlement.builder()
                     .description("Settlement description " + i)
                     .amountOfMoney(BigDecimal.valueOf(1000 + i * 100))
                     .status(FinancialSettlementStatus.PENDING)
                     .workUnderProject(i % 2 == 0 ? work1 : work2)
-                    .employee(employeeList.get(i-1))
-                            .settlementType(SettlementType.GENERAL)
+                    .employee(employeeList.get(i - 1))
+                    .settlementType(SettlementType.GENERAL)
                     .date(LocalDateTime.now().minusDays(i))
                     .uuid(UuidGenerator.generateUuid())
                     .build();
             financialSettlementRepository.save(settlement);
+        }
+
+        List<FinancialSettlement> settlements = financialSettlementRepository.findAll();
+        for (int i = 0; i < settlements.size(); i++) {
+            FinancialSettlement settlement = settlements.get(i);
+            AnswerForSettlement answer = AnswerForSettlement.builder()
+                    .createdDate(LocalDateTime.now().minusDays(i))
+                    .financialSettlement(settlement)
+                    .answerForSettlement("Answer for settlement " + (i + 1))
+                    .settlementAnswerStatus(SettlementAnswerStatus.RESOLVED)
+                    .build();
+            answerForSettlementRepository.save(answer);
         }
     }
 }

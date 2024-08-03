@@ -51,6 +51,11 @@ public class AccountantManagerFacade {
         return mapListAnswerForDto(answerForSettlementList);
     }
 
+    public List<AnswerForSettlementDtoResponse> getAllAnswerForSettlementsTest() {
+        List<AnswerForSettlement> answerForSettlementList = answerForSettlementRepository.findAll();
+        return AnswerForSettlementMapper.mapListAnswersForSettlementsToDto(answerForSettlementList);
+    }
+
 
     private AnswerForSettlementDto mapAnswerForDto(AnswerForSettlement answerForSettlement) {
         return AnswerForSettlementMapper.mapAnswerForDto(answerForSettlement);
@@ -60,5 +65,14 @@ public class AccountantManagerFacade {
         List<FinancialSettlement> settlements = financialSettlementManagerFacade.getAllFinancialSettlements();
         return pdfCreatorFacade.createReport(settlements);
 
+    }
+
+    public AnswerForSettlementDtoResponse findAnswerForSettlementByUuid(String uuid) {
+        Optional<AnswerForSettlement> answerForSettlementByUuid = answerForSettlementRepository.findAnswerForSettlementByUuid(uuid);
+        if(answerForSettlementByUuid.isPresent()){
+
+            return AnswerForSettlementMapper.mapAnswerForResponseDto(answerForSettlementByUuid.get());
+        }
+        return  null;
     }
 }

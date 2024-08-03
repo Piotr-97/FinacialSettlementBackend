@@ -164,4 +164,9 @@ public class AccountantManagerRepositoryTestImpl implements AnswerForSettlementR
     public Page<AnswerForSettlement> findAll(Pageable pageable) {
         return null;
     }
+
+    @Override
+    public Optional<AnswerForSettlement> findAnswerForSettlementByUuid(String uuid) {
+        return Optional.empty();
+    }
 }

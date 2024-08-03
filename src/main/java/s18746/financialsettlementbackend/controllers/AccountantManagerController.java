@@ -8,13 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import s18746.financialsettlementbackend.accountantmenager.AccountantManagerFacade;
 import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlement;
-import s18746.financialsettlementbackend.accountantmenager.dtos.AnswerForSettlementDto;
 import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlementResponse;
 import s18746.financialsettlementbackend.accountantmenager.dtos.AnswerForSettlementRequest;
 import s18746.financialsettlementbackend.financialsettelmentsmanager.exceptions.FinancialSettlementNotFoundException;
+import s18746.financialsettlementbackend.accountantmenager.AnswerForSettlementDtoResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -23,20 +22,20 @@ public class AccountantManagerController {
 
    private final AccountantManagerFacade accountantManagerFacade;
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<?> getAllAnswerForSettlement() {
-        List<AnswerForSettlementDto> answerForSettlementDtos = accountantManagerFacade.getAllAnswerForSettlements();
+        List<AnswerForSettlementDtoResponse> answerForSettlementDtos = accountantManagerFacade.getAllAnswerForSettlementsTest();
 
         return new ResponseEntity<>(answerForSettlementDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findAnswerForSettlementsById(@PathVariable Long id) {
-        Optional<AnswerForSettlementDto> answer = accountantManagerFacade.findAnswerForSettlementById(id);
-        if (answer.isPresent()) {
-            return new ResponseEntity<>(answer, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+
+
+    @GetMapping("/{uuid}")
+    public ResponseEntity<?> findAnswerForSettlementsByUuid(@PathVariable String uuid) {
+        AnswerForSettlementDtoResponse answer = accountantManagerFacade.findAnswerForSettlementByUuid(uuid);
+        return new ResponseEntity<>(answer, HttpStatus.OK);
     }
 
 
